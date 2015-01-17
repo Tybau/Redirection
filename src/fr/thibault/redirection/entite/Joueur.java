@@ -15,6 +15,7 @@ public class Joueur {
 	
 	public int x = 1, y = 1;
 	String move = "R";
+	boolean canMove = true;
 	
 	long dernTicks = GameMain.ticks;
 	
@@ -25,33 +26,36 @@ public class Joueur {
 	}
 	
 	public void update(GameContainer container){
-		if (GameMain.ticks >= dernTicks + 30){
+		if (GameMain.ticks >= dernTicks + 30 && canMove){
 			dernTicks += 30;
 			
-			if(move == "R" && Terrain.blocs[x + 1][y] == 0)
+			if(move == "R" && !Terrain.blocs[x + 1][y].estSolide)
 				x ++;
 			
-			if(move == "L" && Terrain.blocs[x - 1][y] == 0)
+			if(move == "L" && !Terrain.blocs[x - 1][y].estSolide)
 				x --;
 			
-			if(move == "D" && Terrain.blocs[x][y + 1] == 0)
+			if(move == "D" && !Terrain.blocs[x][y + 1].estSolide)
 				y ++;
 			
-			if(move == "U" && Terrain.blocs[x][y - 1] == 0)
+			if(move == "U" && !Terrain.blocs[x][y - 1].estSolide)
 				y --;
 			
-			if(move == "R" && Terrain.blocs[x + 1][y] == 1)
+			if(move == "R" && Terrain.blocs[x + 1][y].estSolide)
 				move = "D";
 			
-			if(move == "L" && Terrain.blocs[x - 1][y] == 1)
+			if(move == "L" && Terrain.blocs[x - 1][y].estSolide)
 				move = "U";
 			
-			if(move == "D" && Terrain.blocs[x][y + 1] == 1)
+			if(move == "D" && Terrain.blocs[x][y + 1].estSolide)
 				move = "L";
 			
-			if(move == "U" && Terrain.blocs[x][y - 1] == 1)
+			if(move == "U" && Terrain.blocs[x][y - 1].estSolide)
 				move = "R";
 			
+			if(Terrain.blocs[x][y].type == "WIN"){
+				canMove = false;
+			}	
 		}
 	}
 	

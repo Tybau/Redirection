@@ -9,18 +9,20 @@ import fr.thibault.redirection.terrain.Terrain;
 public class Blocs {
 	
 	String texture;
-	boolean estSolide;
+	public boolean estSolide;
+	public String type;
 	
 	Image img;
 	
-	public Blocs(String texture, boolean estSolide) throws SlickException{
+	public Blocs(String texture, String type, boolean estSolide) throws SlickException{
 		this.texture = texture;
+		this.type = type;
 		this.estSolide = estSolide;
 		
 		img = new Image(texture);
 	}
 	
 	public void render(Graphics g, int x, int y){
-		img.draw(x * Terrain.taille, y * Terrain.taille, 50, 50);
+		img.draw(x * Terrain.taille, y * Terrain.taille, Terrain.taille, Terrain.taille);
 	}
 }

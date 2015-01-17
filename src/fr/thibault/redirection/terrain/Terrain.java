@@ -13,12 +13,12 @@ public class Terrain {
 	
 	public static int nbCase = 10;
 	public static int taille = 50;
-	public static int[][] blocs = new int[nbCase][nbCase];
+	public static Blocs[][] blocs = new Blocs[nbCase][nbCase];
 	
 	Input input;
 	
 	Image niv;
-	Blocs mur;
+	Blocs mur, sol, fin;
 	Joueur joueur;
 	
 	GameContainer container;
@@ -26,7 +26,9 @@ public class Terrain {
 	public Terrain(GameContainer container, String niveau) throws SlickException{
 		this.container = container;
 		niv = new Image(niveau);
-		mur = new Blocs("/assets/textures/mur.png", true);
+		mur = new Blocs("/assets/textures/mur.png", "BASE", true);
+		sol = new Blocs("/assets/textures/vide.png", "BASE", false);
+		fin = new Blocs("/assets/textures/fin.png", "WIN", false);
 		joueur = new Joueur("/assets/textures/joueur.png");
 		
 		for (int x = 0; x < nbCase; x ++){
@@ -34,9 +36,13 @@ public class Terrain {
 				if (niv.getColor(x, y).getRed() == 0 &&
 					niv.getColor(x, y).getBlue() == 0 &&
 					niv.getColor(x, y).getGreen()== 0)
-					blocs[x][y] = 1;
+					blocs[x][y] = mur;
+				else if (niv.getColor(x, y).getRed() == 255 &&
+						niv.getColor(x, y).getBlue() == 0 &&
+						niv.getColor(x, y).getGreen()== 0)
+						blocs[x][y] = fin;
 				else
-					blocs[x][y] = 0;
+					blocs[x][y] = sol;
 			}
 		}
 	}
@@ -46,7 +52,7 @@ public class Terrain {
 		
 		if(input.isMousePressed(0) && input.getMouseX() <= taille * nbCase && input.getMouseY() <= taille * nbCase){
 			if(input.getMouseX() / taille != joueur.x || input.getMouseY() / taille != joueur.y)
-				blocs[input.getMouseX() / taille][input.getMouseY() / taille] = 1;
+				blocs[input.getMouseX() / taille][input.getMouseY() / taille] = mur;
 		}
 		joueur.update(container);
 	}
@@ -55,8 +61,7 @@ public class Terrain {
 		for (int x = 0; x < nbCase; x ++){
 			for (int y = 0; y < nbCase; y ++){
 				g.drawRect(x * taille, y * taille, taille, taille);
-				if (blocs[x][y] == 1)
-					mur.render(g, x, y);
+				blocs[x][y].render(g, x, y);
 			}
 		}
 		joueur.render(g);
