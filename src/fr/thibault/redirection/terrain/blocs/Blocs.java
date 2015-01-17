@@ -4,6 +4,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import fr.thibault.redirection.terrain.Terrain;
+
 public class Blocs {
 	
 	String texture;
@@ -19,6 +21,6 @@ public class Blocs {
 	}
 	
 	public void render(Graphics g, int x, int y){
-		img.draw(x, y, 50, 50);
+		img.draw(x * Terrain.taille, y * Terrain.taille, 50, 50);
 	}
 }

@@ -13,10 +13,8 @@ public class Joueur {
 	String texture;
 	Image img;
 	
-	int xJ = 1, yJ = 1;
+	public int x = 1, y = 1;
 	String move = "R";
-	
-	int taille = 50;
 	
 	long dernTicks = GameMain.ticks;
 	
@@ -30,34 +28,34 @@ public class Joueur {
 		if (GameMain.ticks >= dernTicks + 30){
 			dernTicks += 30;
 			
-			if(move == "R" && Terrain.blocs[xJ + 1][yJ] == 0)
-				xJ ++;
+			if(move == "R" && Terrain.blocs[x + 1][y] == 0)
+				x ++;
 			
-			if(move == "L" && Terrain.blocs[xJ - 1][yJ] == 0)
-				xJ --;
+			if(move == "L" && Terrain.blocs[x - 1][y] == 0)
+				x --;
 			
-			if(move == "D" && Terrain.blocs[xJ][yJ + 1] == 0)
-				yJ ++;
+			if(move == "D" && Terrain.blocs[x][y + 1] == 0)
+				y ++;
 			
-			if(move == "U" && Terrain.blocs[xJ][yJ - 1] == 0)
-				yJ --;
+			if(move == "U" && Terrain.blocs[x][y - 1] == 0)
+				y --;
 			
-			if(move == "R" && Terrain.blocs[xJ + 1][yJ] == 1)
+			if(move == "R" && Terrain.blocs[x + 1][y] == 1)
 				move = "D";
 			
-			if(move == "L" && Terrain.blocs[xJ - 1][yJ] == 1)
+			if(move == "L" && Terrain.blocs[x - 1][y] == 1)
 				move = "U";
 			
-			if(move == "D" && Terrain.blocs[xJ][yJ + 1] == 1)
+			if(move == "D" && Terrain.blocs[x][y + 1] == 1)
 				move = "L";
 			
-			if(move == "U" && Terrain.blocs[xJ][yJ - 1] == 1)
+			if(move == "U" && Terrain.blocs[x][y - 1] == 1)
 				move = "R";
 			
 		}
 	}
 	
 	public void render(Graphics g){
-		img.draw(xJ * taille, yJ * taille, taille, taille);
+		img.draw(x * Terrain.taille, y * Terrain.taille, Terrain.taille, Terrain.taille);
 	}
 }

@@ -11,9 +11,8 @@ import fr.thibault.redirection.terrain.blocs.Blocs;
 
 public class Terrain {
 	
-	static int nbCase = 10;
-	int taille = 50;
-	
+	public static int nbCase = 10;
+	public static int taille = 50;
 	public static int[][] blocs = new int[nbCase][nbCase];
 	
 	Input input;
@@ -46,7 +45,8 @@ public class Terrain {
 		input = container.getInput();
 		
 		if(input.isMousePressed(0) && input.getMouseX() <= taille * nbCase && input.getMouseY() <= taille * nbCase){
-			blocs[input.getMouseX() / taille][input.getMouseY() / taille] = 1;
+			if(input.getMouseX() / taille != joueur.x || input.getMouseY() / taille != joueur.y)
+				blocs[input.getMouseX() / taille][input.getMouseY() / taille] = 1;
 		}
 		joueur.update(container);
 	}
@@ -56,7 +56,7 @@ public class Terrain {
 			for (int y = 0; y < nbCase; y ++){
 				g.drawRect(x * taille, y * taille, taille, taille);
 				if (blocs[x][y] == 1)
-					mur.render(g, x * taille, y * taille);
+					mur.render(g, x, y);
 			}
 		}
 		joueur.render(g);
