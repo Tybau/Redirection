@@ -15,7 +15,7 @@ public class Joueur {
 	
 	public int x = 1, y = 1;
 	String move = "R";
-	boolean canMove = true;
+	boolean peutBouger = true;
 	
 	long dernTicks = GameMain.ticks;
 	
@@ -25,8 +25,8 @@ public class Joueur {
 		img = new Image(texture);
 	}
 	
-	public void update(GameContainer container){
-		if (GameMain.ticks >= dernTicks + 30 && canMove){
+	public void update(GameContainer container){		
+		if (GameMain.ticks >= dernTicks + 30 && peutBouger){
 			dernTicks += 30;
 			
 			if(move == "R" && !Terrain.blocs[x + 1][y].estSolide)
@@ -54,12 +54,15 @@ public class Joueur {
 				move = "R";
 			
 			if(Terrain.blocs[x][y].type == "WIN"){
-				canMove = false;
-			}	
+				peutBouger = false;
+			}
 		}
 	}
 	
 	public void render(Graphics g){
 		img.draw(x * Terrain.taille, y * Terrain.taille, Terrain.taille, Terrain.taille);
+		if(!peutBouger){
+			g.drawString("Tu as gagné!", 50, 50);
+		}
 	}
 }
