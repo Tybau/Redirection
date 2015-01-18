@@ -5,25 +5,25 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import fr.thibault.redirection.terrain.Terrain;
+import fr.thibault.redirection.niveau.Niveau;
 
 public class Jeu {
 	
 	Input input;
 	Graphics g;
 	
-	Terrain terrain;
+	Niveau niv;
 	
 	public void init(GameContainer container) throws SlickException{
 		input = container.getInput();
-		terrain = new Terrain(container, "/assets/textures/level.png");
+		niv = new Niveau(1, 6);
 	}
 	
 	public void update(GameContainer container, int delta){
-		terrain.update(container);
+		niv.update(container);
 	}
 	
 	public void render(GameContainer container, Graphics g){
-		terrain.render(g);
+		niv.render(g);
 	}
 }

@@ -16,21 +16,20 @@ public class Terrain {
 	public static Blocs[][] blocs = new Blocs[nbCase][nbCase];
 	
 	Input input;
-	int nbBlocs = 2;
+	int nbBlocs;
 	
 	Image niv, blocLogo;
 	Blocs mur, sol, fin;
 	Joueur joueur;
 	
-	GameContainer container;
-	
-	public Terrain(GameContainer container, String niveau) throws SlickException{
-		this.container = container;
+	public Terrain(String niveau, int nbBlocs) throws SlickException{
+		this.nbBlocs = nbBlocs;
+		
 		niv = new Image(niveau);
 		blocLogo = new Image("/assets/textures/blocs.png");
-		mur = new Blocs("/assets/textures/mur.png", "BASE", true);
-		sol = new Blocs("/assets/textures/vide.png", "BASE", false);
-		fin = new Blocs("/assets/textures/fin.png", "WIN", false);
+		mur = new Blocs("/assets/textures/blocs/mur.png", "BASE", true);
+		sol = new Blocs("/assets/textures/blocs/sol.png", "BASE", false);
+		fin = new Blocs("/assets/textures/blocs/fin.png", "WIN", false);
 		joueur = new Joueur("/assets/textures/joueur.png");
 		
 		for (int x = 0; x < nbCase; x ++){
@@ -70,6 +69,5 @@ public class Terrain {
 		joueur.render(g);
 		g.drawString(nbBlocs + " x ", 50, 550);
 		blocLogo.draw(90, 550, 20, 20);
-		
 	}
 }
