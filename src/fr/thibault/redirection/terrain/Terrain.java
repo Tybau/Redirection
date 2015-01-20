@@ -53,8 +53,11 @@ public class Terrain {
 		
 		if(input.isMousePressed(0) && input.getMouseX() <= taille * nbCase && input.getMouseY() <= taille * nbCase && nbBlocs != 0){
 			if(input.getMouseX() / taille != joueur.x || input.getMouseY() / taille != joueur.y){
-				blocs[input.getMouseX() / taille][input.getMouseY() / taille] = mur;
-				nbBlocs--;
+				if(!blocs[input.getMouseX() / taille][input.getMouseY() / taille].estSolide &&
+				   blocs[input.getMouseX() / taille][input.getMouseY() / taille].type == "BASE"){
+					blocs[input.getMouseX() / taille][input.getMouseY() / taille] = mur;
+					nbBlocs--;
+				}
 			}
 		}
 		joueur.update(container);
