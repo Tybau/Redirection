@@ -30,7 +30,7 @@ public class Jeu {
 			menu.update(container);
 		if(scene == "JEU"){
 			if(lance){
-				niv = new Niveau(1, 2);
+				niv = new Niveau(2, 25, 20);
 				lance = false;
 			}
 			niv.update(container);

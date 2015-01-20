@@ -6,6 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import fr.thibault.redirection.GameMain;
+import fr.thibault.redirection.niveau.Niveau;
 import fr.thibault.redirection.terrain.Terrain;
 
 public class Joueur {
@@ -60,9 +61,9 @@ public class Joueur {
 	}
 	
 	public void render(Graphics g){
-		img.draw(x * Terrain.taille, y * Terrain.taille, Terrain.taille, Terrain.taille);
+		img.draw(x * Niveau.taille, y * Niveau.taille, Niveau.taille, Niveau.taille);
 		if(!peutBouger){
-			g.drawString("Tu as gagné!", 50, 50);
+			g.drawString("Tu as gagné!", 600, 150);
 		}
 	}
 }

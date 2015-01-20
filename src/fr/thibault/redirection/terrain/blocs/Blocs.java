@@ -4,7 +4,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import fr.thibault.redirection.terrain.Terrain;
+import fr.thibault.redirection.niveau.Niveau;
 
 public class Blocs {
 	
@@ -23,6 +23,6 @@ public class Blocs {
 	}
 	
 	public void render(Graphics g, int x, int y){
-		img.draw(x * Terrain.taille, y * Terrain.taille, Terrain.taille, Terrain.taille);
+		img.draw(x * Niveau.taille, y * Niveau.taille, Niveau.taille, Niveau.taille);
 	}
 }
