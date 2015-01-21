@@ -24,9 +24,9 @@ public class Terrain {
 		
 		niv = new Image(niveau);
 		blocLogo = new Image("/assets/textures/blocs.png");
-		mur = new Blocs("/assets/textures/blocs/mur.png", "BASE", true);
-		sol = new Blocs("/assets/textures/blocs/sol.png", "BASE", false);
-		fin = new Blocs("/assets/textures/blocs/fin.png", "WIN", false);
+		mur = new Blocs("mur", "BASE", true);
+		sol = new Blocs("sol", "BASE", false);
+		fin = new Blocs("fin", "WIN", false);
 		
 		for (int x = 0; x < Niveau.nbCase; x ++){
 			for (int y = 0; y < Niveau.nbCase; y ++){

@@ -19,7 +19,7 @@ public class Blocs {
 		this.type = type;
 		this.estSolide = estSolide;
 		
-		img = new Image(texture);
+		img = new Image("/assets/textures/blocs/" + texture + ".png");
 	}
 	
 	public void render(Graphics g, int x, int y){

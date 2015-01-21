@@ -4,7 +4,9 @@ package fr.thibault.redirection.ui;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 
 import fr.thibault.redirection.Jeu;
 
@@ -12,10 +14,14 @@ public class Menu {
 	
 	Input input;
 	
-	int choix = 0;
+	Image title, fond;
 	
-	public Menu(){
-		
+	int choix = 0;
+	int choixMax = 3;
+	
+	public Menu() throws SlickException{
+		title = new Image("/assets/textures/title.png");
+		fond = new Image("/assets/textures/bg.png");
 	}
 	
 	@SuppressWarnings("static-access")
@@ -30,7 +36,7 @@ public class Menu {
 		if(input.isKeyPressed(input.KEY_ENTER) && choix == 1)
 			Jeu.scene = "OPTION";
 		
-		if(input.isKeyPressed(input.KEY_DOWN) && choix < 1)
+		if(input.isKeyPressed(input.KEY_DOWN) && choix < choixMax)
 			choix++;
 		
 		if(input.isKeyPressed(input.KEY_UP) && choix > 0)
@@ -38,19 +44,40 @@ public class Menu {
 	}
 	
 	public void render(Graphics g){
-		g.drawString("Redirection", 50, 50);
+		title.draw(50, 50);
+		fond.draw(350, 25, 600, 550);
+		
+		//Jouer
 		
 		if(choix == 0)
 			g.setColor(Color.yellow);
-		if(choix == 1)
+		else
 			g.setColor(Color.white);
 		g.drawString("Jouer", 75, 150);
 		
-		if(choix == 0)
-			g.setColor(Color.white);
+		//Niveaux
+		
 		if(choix == 1)
 			g.setColor(Color.yellow);
-		g.drawString("Option", 75, 200);
+		else
+			g.setColor(Color.white);
+		g.drawString("Niveaux", 75, 200);
+		
+		//Option
+		
+		if(choix == 2)
+			g.setColor(Color.yellow);
+		else
+			g.setColor(Color.white);
+		g.drawString("Option", 75, 250);
+		
+		//Fermer
+		
+		if(choix == 3)
+			g.setColor(Color.yellow);
+		else
+			g.setColor(Color.white);
+		g.drawString("Fermer", 75, 300);
 		
 		g.setColor(Color.white);
 		g.drawString("© Thibault(s) 2015", 800, 550);
