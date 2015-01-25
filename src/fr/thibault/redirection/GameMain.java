@@ -15,6 +15,8 @@ public class GameMain extends BasicGame{
 	public static long ticks;
 	int tps;
 	
+	static AppGameContainer a;
+	
 	public GameMain(String title) {
 		super(title);
 		
@@ -23,9 +25,10 @@ public class GameMain extends BasicGame{
 	
 	public static void main(String[] args){					//Fonction Principale
 		try {
-			AppGameContainer a = new AppGameContainer(new GameMain("Redirection"));
+			a = new AppGameContainer(new GameMain("Redirection"));
 			a.setDisplayMode(1000, 600, false);				//Création d'une fenetre
 			a.start();
+			
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -33,13 +36,15 @@ public class GameMain extends BasicGame{
 	
 	@Override
 	public void init(GameContainer container) throws SlickException {		//Initialisation
-		System.out.println("[ Redirection ] La fenètre à été créé.");
+		System.err.println("[ Redirection ] La fenètre à été créé!");
 		j.init(container);
 	}
 
 	@Override
 	public void update(GameContainer container, int delta)					//Mise à jour
 			throws SlickException {
+		a.setShowFPS(false);
+		
 		if(System.nanoTime() >= dernNano + 1000000000 / 60){
 			j.update(container, delta);
 			dernNano += 1000000000 / 60;
@@ -49,7 +54,7 @@ public class GameMain extends BasicGame{
 		
 		if(System.nanoTime() >= dernSecond + 1000000000){
 			dernSecond += 1000000000;
-			System.out.println("[ Redirection ] TPS = " + tps);
+			a.setTitle("Redirection     ||     TPS: " + tps + "   |   FPS: " + a.getFPS());
 			tps = 0;
 		}
 	}
