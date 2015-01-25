@@ -27,8 +27,8 @@ public class Joueur {
 	}
 	
 	public void update(GameContainer container){		
-		if (GameMain.ticks >= dernTicks + 30 && peutBouger){
-			dernTicks += 30;
+		if (GameMain.ticks >= dernTicks + 60 / Niveau.vitesse && peutBouger){
+			dernTicks += 60 / Niveau.vitesse ;
 			
 			if(move == "R" && !Terrain.blocs[x + 1][y].estSolide)
 				x ++;

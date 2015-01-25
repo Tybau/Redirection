@@ -16,6 +16,7 @@ public class Niveau {
 	
 	public static int nbCase;
 	public static int taille;
+	public static int vitesse = 2;
 	
 	public Niveau(int niv, int nbBlocs, int nbCase) throws SlickException{
 		Niveau.nbCase = nbCase;

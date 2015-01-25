@@ -17,7 +17,7 @@ public class Terrain {
 	int nbBlocs;
 	
 	Image niv, blocLogo;
-	Blocs mur, sol, fin;
+	Blocs mur, murPose, sol, fin;
 	
 	public Terrain(String niveau, int nbBlocs) throws SlickException{
 		this.nbBlocs = nbBlocs;
@@ -25,6 +25,7 @@ public class Terrain {
 		niv = new Image(niveau);
 		blocLogo = new Image("/assets/textures/blocs.png");
 		mur = new Blocs("mur", "BASE", true);
+		murPose = new Blocs("mur_pose", "BASE", true);
 		sol = new Blocs("sol", "BASE", false);
 		fin = new Blocs("fin", "WIN", false);
 		
@@ -51,7 +52,7 @@ public class Terrain {
 			if(input.getMouseX() / Niveau.taille != joueurX || input.getMouseY() / Niveau.taille != joueurY){
 				if(!blocs[input.getMouseX() / Niveau.taille][input.getMouseY() / Niveau.taille].estSolide &&
 				   blocs[input.getMouseX() / Niveau.taille][input.getMouseY() / Niveau.taille].type == "BASE"){
-					blocs[input.getMouseX() / Niveau.taille][input.getMouseY() / Niveau.taille] = mur;
+					blocs[input.getMouseX() / Niveau.taille][input.getMouseY() / Niveau.taille] = murPose;
 					nbBlocs--;
 				}
 			}
