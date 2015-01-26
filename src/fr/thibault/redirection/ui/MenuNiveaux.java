@@ -29,6 +29,10 @@ Input input;
 		if(input.isKeyPressed(input.KEY_ENTER)){
 			if(choix == 3)
 				Jeu.scene = "MENU";
+			else{
+				Jeu.numNiveau = choix;
+				Jeu.scene = "MENU";
+			}
 		}
 		
 		if(input.isKeyPressed(input.KEY_DOWN) && choix < choixMax)
@@ -48,7 +52,7 @@ Input input;
 			g.setColor(Color.yellow);
 		else
 			g.setColor(Color.white);
-		g.drawString("Niveau 1", 75, 150);
+		g.drawString("Niveau 0", 75, 150);
 		
 		//2
 		
@@ -56,7 +60,7 @@ Input input;
 			g.setColor(Color.yellow);
 		else
 			g.setColor(Color.white);
-		g.drawString("Niveau 2", 75, 200);
+		g.drawString("Niveau 1", 75, 200);
 		
 		//3
 		
@@ -64,7 +68,7 @@ Input input;
 			g.setColor(Color.yellow);
 		else
 			g.setColor(Color.white);
-		g.drawString("Niveau 3", 75, 250);
+		g.drawString("Niveau 2", 75, 250);
 		
 		//Retour MENU
 		

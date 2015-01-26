@@ -20,6 +20,7 @@ public class Jeu {
 	public static boolean lance = false;
 	
 	public static String scene = "MENU";
+	public static int numNiveau = 0;
 	
 	public void init(GameContainer container) throws SlickException{		
 		menu = new Menu();
@@ -39,7 +40,7 @@ public class Jeu {
 		
 		if(scene == "JEU"){
 			if(lance){
-				niv = new Niveau(1, 25, 10);
+				niv = new Niveau(numNiveau, 25);
 				lance = false;
 			}
 			niv.update(container);

@@ -18,12 +18,11 @@ public class Niveau {
 	Terrain niveauCharge;
 	Joueur joueur;
 	
-	public static int nbCase;
+	public static int nbCase = 10;
 	public static int taille;
 	public static int vitesse = 2;
 	
-	public Niveau(int niv, int nbBlocs, int nbCase) throws SlickException{
-		Niveau.nbCase = nbCase;
+	public Niveau(int niv, int nbBlocs) throws SlickException{
 		Niveau.taille = 500 / nbCase;
 		
 		niveauCharge = new Terrain("/assets/textures/niveaux/NIV_" + niv + ".png", nbBlocs);
@@ -44,13 +43,5 @@ public class Niveau {
 	public void render(Graphics g){
 		niveauCharge.render(g);
 		joueur.render(g);
-	}
-	
-	public int recupNbCase(){
-		return nbCase;
-	}
-	
-	public int recupTaille(){
-		return taille;
 	}
 }
