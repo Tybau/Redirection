@@ -4,9 +4,14 @@
 
 [Redirection] est un concept de jeu créer par [Dan200], qui est également le créateur du célèbre mod [ComputerCraft] créé pour le jeu [Minecraft], qui à pour but de rediriger un bloc à travers un labyrinthe.
 
-Nous avons repris ce concept pour réaliser notre projet d'ISN (Informatique Sciences du Numérique). Tout en le simplifiant en le mettant en 2 dimensions au lieu de 3, mais en réécrivant la totalité du jeu (les sources du jeu de [Dan200] ne sont pas public).
+Présentation du jeu original:
+  https://www.youtube.com/watch?v=UA7DjHGkvbc
 
-<iframe width="636" height="358" src="//www.youtube.com/embed/UA7DjHGkvbc" frameborder="0" allowfullscreen></iframe>
+
+----------
+
+
+Nous avons repris ce concept pour réaliser notre projet d'ISN (Informatique Sciences du Numérique). Tout en le simplifiant en le mettant en 2 dimensions au lieu de 3, mais en réécrivant la totalité du jeu (les sources du jeu de [Dan200] ne sont pas public).
 
 ##Bibliothèques utilisées
 
