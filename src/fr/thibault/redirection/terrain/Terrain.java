@@ -19,10 +19,10 @@ public class Terrain {
 	Image niv, blocLogo;
 	Blocs mur, murPose, sol, fin;
 	
-	public Terrain(String niveau, int nbBlocs) throws SlickException{
+	public Terrain(Image niveau, int nbBlocs) throws SlickException{
 		this.nbBlocs = nbBlocs;
+		this.niv = niveau;
 		
-		niv = new Image(niveau);
 		blocLogo = new Image("/assets/textures/blocs.png");
 		mur = new Blocs("mur", "BASE", true);
 		murPose = new Blocs("mur_pose", "BASE", true);

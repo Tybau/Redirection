@@ -13,14 +13,13 @@ public class Menu {
 	
 	Input input;
 	
-	Image title, fond;
+	Image title;
 	
 	int choix = 0;
 	int choixMax = 3;
 	
 	public Menu() throws SlickException{
 		title = new Image("/assets/textures/title.png");
-		fond = new Image("/assets/textures/bg.png");
 	}
 	
 	@SuppressWarnings("static-access")
@@ -53,7 +52,6 @@ public class Menu {
 	
 	public void render(Graphics g){
 		title.draw(50, 50);
-		fond.draw(350, 25, 600, 550);
 		
 		//Jouer
 		

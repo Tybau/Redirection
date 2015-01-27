@@ -13,6 +13,8 @@ public class Jeu {
 	
 	Niveau niv;
 	
+	int[] nbBlocs = {2, 10, 3};
+	
 	Menu menu;
 	MenuOption option;
 	MenuNiveaux niveaux;
@@ -21,6 +23,7 @@ public class Jeu {
 	
 	public static String scene = "MENU";
 	public static int numNiveau = 0;
+	public static int nbBlocsSup = 2;
 	
 	public void init(GameContainer container) throws SlickException{		
 		menu = new Menu();
@@ -40,7 +43,7 @@ public class Jeu {
 		
 		if(scene == "JEU"){
 			if(lance){
-				niv = new Niveau(numNiveau, 25);
+				niv = new Niveau(numNiveau, nbBlocs[numNiveau] + nbBlocsSup);
 				lance = false;
 			}
 			niv.update(container);

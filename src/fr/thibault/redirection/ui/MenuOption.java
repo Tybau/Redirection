@@ -13,14 +13,15 @@ public class MenuOption {
 	
 	Input input;
 	
-	Image title, fond;
+	Image title;
 	
 	int choix = 0;
 	int choixMax = 2;
 	
+	int difficulté = 0;
+	
 	public MenuOption() throws SlickException{
 		title = new Image("/assets/textures/title.png");
-		fond = new Image("/assets/textures/bg.png");
 	}
 	
 	@SuppressWarnings("static-access")
@@ -32,6 +33,18 @@ public class MenuOption {
 				Jeu.scene = "MENU";
 		}
 		
+		//Choix de la difficulté
+		
+		if(input.isKeyPressed(input.KEY_LEFT) && choix == 1 && difficulté > 0)
+			difficulté--;
+		
+		if(input.isKeyPressed(input.KEY_RIGHT) && choix == 1 && difficulté < 2)
+			difficulté++;
+		
+		Jeu.nbBlocsSup = 2 - difficulté;
+		
+		//Choix de l'option
+		
 		if(input.isKeyPressed(input.KEY_DOWN) && choix < choixMax)
 			choix++;
 		
@@ -41,7 +54,6 @@ public class MenuOption {
 	
 	public void render(Graphics g){
 		title.draw(50, 50);
-		fond.draw(350, 25, 600, 550);
 		
 		//Son
 		
@@ -57,7 +69,7 @@ public class MenuOption {
 			g.setColor(Color.yellow);
 		else
 			g.setColor(Color.white);
-		g.drawString("Difficulté", 75, 200);
+		g.drawString("Difficulté: " + difficulté, 75, 200);
 		
 		//Retour MENU
 		

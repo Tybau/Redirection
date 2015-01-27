@@ -2,6 +2,7 @@ package fr.thibault.redirection.niveau;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -13,19 +14,22 @@ public class Niveau {
 	
 	Input input;
 	
+	Image niveau;
+	
 	int nbNiv = 5;
 	
 	Terrain niveauCharge;
 	Joueur joueur;
 	
-	public static int nbCase = 10;
+	public static int nbCase;
 	public static int taille;
-	public static int vitesse = 2;
+	public static int vitesse = 3;
 	
-	public Niveau(int niv, int nbBlocs) throws SlickException{
+	public Niveau(int niv, int nbBlocs) throws SlickException{		
+		niveau = new Image("/assets/textures/niveaux/NIV_" + niv + ".png");
+		nbCase = niveau.getWidth();
 		Niveau.taille = 500 / nbCase;
-		
-		niveauCharge = new Terrain("/assets/textures/niveaux/NIV_" + niv + ".png", nbBlocs);
+		niveauCharge = new Terrain(niveau, nbBlocs);
 		joueur = new Joueur("/assets/textures/joueur.png");
 	}
 	
