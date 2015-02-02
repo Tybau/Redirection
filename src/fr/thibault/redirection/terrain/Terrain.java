@@ -5,7 +5,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 
+import fr.thibault.redirection.Jeu;
 import fr.thibault.redirection.niveau.Niveau;
 import fr.thibault.redirection.terrain.blocs.Blocs;
 
@@ -19,6 +21,8 @@ public class Terrain {
 	Image niv, blocLogo;
 	Blocs mur, murPose, sol, fin;
 	
+	Sound blocSon;
+	
 	public Terrain(Image niveau, int nbBlocs) throws SlickException{
 		this.nbBlocs = nbBlocs;
 		this.niv = niveau;
@@ -28,6 +32,8 @@ public class Terrain {
 		murPose = new Blocs("mur_pose", "BASE", true);
 		sol = new Blocs("sol", "BASE", false);
 		fin = new Blocs("fin", "WIN", false);
+		
+		blocSon = new Sound("/assets/sons/bloc.ogg");
 		
 		for (int x = 0; x < Niveau.nbCase; x ++){
 			for (int y = 0; y < Niveau.nbCase; y ++){
@@ -54,6 +60,7 @@ public class Terrain {
 				   blocs[input.getMouseX() / Niveau.taille][input.getMouseY() / Niveau.taille].type == "BASE"){
 					blocs[input.getMouseX() / Niveau.taille][input.getMouseY() / Niveau.taille] = murPose;
 					nbBlocs--;
+					blocSon.play(1, (float)Jeu.volume / 10);
 				}
 			}
 		}

@@ -33,6 +33,14 @@ public class MenuOption {
 				Jeu.scene = "MENU";
 		}
 		
+		//Choix du volume
+		
+		if(input.isKeyPressed(input.KEY_LEFT) && choix == 0 && Jeu.volume > 0)
+			Jeu.volume--;
+		
+		if(input.isKeyPressed(input.KEY_RIGHT) && choix == 0 && Jeu.volume < 10)
+			Jeu.volume++;
+		
 		//Choix de la difficulté
 		
 		if(input.isKeyPressed(input.KEY_LEFT) && choix == 1 && difficulté > 0)
@@ -61,7 +69,7 @@ public class MenuOption {
 			g.setColor(Color.yellow);
 		else
 			g.setColor(Color.white);
-		g.drawString("Son", 75, 150);
+		g.drawString("Volume sonore: " + Jeu.volume, 75, 150);
 		
 		//Difficulté
 		

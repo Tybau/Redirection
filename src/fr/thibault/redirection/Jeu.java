@@ -19,6 +19,8 @@ public class Jeu {
 	MenuOption option;
 	MenuNiveaux niveaux;
 	
+	public static int volume = 5;
+	
 	public static boolean lance = false;
 	
 	public static String scene = "MENU";

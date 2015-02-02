@@ -10,7 +10,8 @@ import org.newdawn.slick.SlickException;
 import fr.thibault.redirection.Jeu;
 
 public class MenuNiveaux {
-Input input;
+	
+	Input input;
 	
 	Image title;
 	
