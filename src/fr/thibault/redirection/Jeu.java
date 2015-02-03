@@ -13,7 +13,7 @@ public class Jeu {
 	
 	Niveau niv;
 	
-	int[] nbBlocs = {2, 10, 3};
+	int[] nbBlocs = {2, 4, 4, 8, 7};
 	
 	Menu menu;
 	MenuOption option;

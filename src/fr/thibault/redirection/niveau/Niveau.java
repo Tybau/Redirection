@@ -15,9 +15,7 @@ public class Niveau {
 	Input input;
 	
 	Image niveau;
-	
-	int nbNiv = 5;
-	
+		
 	Terrain niveauCharge;
 	Joueur joueur;
 	
@@ -28,7 +26,7 @@ public class Niveau {
 	public Niveau(int niv, int nbBlocs) throws SlickException{		
 		niveau = new Image("/assets/textures/niveaux/NIV_" + niv + ".png");
 		nbCase = niveau.getWidth();
-		Niveau.taille = 500 / nbCase;
+		taille = 500 / nbCase;
 		niveauCharge = new Terrain(niveau, nbBlocs);
 		joueur = new Joueur("/assets/textures/joueur.png");
 	}

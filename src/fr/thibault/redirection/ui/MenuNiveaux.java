@@ -16,7 +16,7 @@ public class MenuNiveaux {
 	Image title;
 	
 	int choix = 0;
-	int choixMax = 3;
+	int choixMax = 5;
 	
 	public MenuNiveaux() throws SlickException{
 		title = new Image("/assets/textures/title.png");
@@ -27,7 +27,7 @@ public class MenuNiveaux {
 		input = container.getInput();
 		
 		if(input.isKeyPressed(input.KEY_ENTER)){
-			if(choix == 3)
+			if(choix == 5)
 				Jeu.scene = "MENU";
 			else{
 				Jeu.numNiveau = choix;
@@ -45,7 +45,7 @@ public class MenuNiveaux {
 	public void render(Graphics g){
 		title.draw(50, 50);
 		
-		//1
+		//0
 		
 		if(choix == 0)
 			g.setColor(Color.yellow);
@@ -53,7 +53,7 @@ public class MenuNiveaux {
 			g.setColor(Color.white);
 		g.drawString("Niveau 0", 75, 150);
 		
-		//2
+		//1
 		
 		if(choix == 1)
 			g.setColor(Color.yellow);
@@ -61,7 +61,7 @@ public class MenuNiveaux {
 			g.setColor(Color.white);
 		g.drawString("Niveau 1", 75, 200);
 		
-		//3
+		//2
 		
 		if(choix == 2)
 			g.setColor(Color.yellow);
@@ -69,9 +69,25 @@ public class MenuNiveaux {
 			g.setColor(Color.white);
 		g.drawString("Niveau 2", 75, 250);
 		
-		//Retour MENU
+		//3
 		
 		if(choix == 3)
+			g.setColor(Color.yellow);
+		else
+			g.setColor(Color.white);
+		g.drawString("Niveau 3", 75, 300);
+		
+		//4
+		
+		if(choix == 4)
+			g.setColor(Color.yellow);
+		else
+			g.setColor(Color.white);
+		g.drawString("Niveau 4", 75, 350);
+		
+		//Retour MENU
+		
+		if(choix == 5)
 			g.setColor(Color.yellow);
 		else
 			g.setColor(Color.white);

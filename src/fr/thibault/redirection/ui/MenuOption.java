@@ -35,19 +35,21 @@ public class MenuOption {
 		
 		//Choix du volume
 		
-		if(input.isKeyPressed(input.KEY_LEFT) && choix == 0 && Jeu.volume > 0)
-			Jeu.volume--;
+		if(input.isKeyPressed(input.KEY_LEFT)){
+			if (choix == 0 && Jeu.volume > 0)
+				Jeu.volume--;
 		
-		if(input.isKeyPressed(input.KEY_RIGHT) && choix == 0 && Jeu.volume < 10)
-			Jeu.volume++;
+			if(choix == 1 && difficulté > 0)
+				difficulté--;
+		}
 		
-		//Choix de la difficulté
+		if(input.isKeyPressed(input.KEY_RIGHT)){
+			if (choix == 0 && Jeu.volume < 10)
+				Jeu.volume++;
 		
-		if(input.isKeyPressed(input.KEY_LEFT) && choix == 1 && difficulté > 0)
-			difficulté--;
-		
-		if(input.isKeyPressed(input.KEY_RIGHT) && choix == 1 && difficulté < 2)
-			difficulté++;
+			if(choix == 1 && difficulté < 2)
+				difficulté++;
+		}
 		
 		Jeu.nbBlocsSup = 2 - difficulté;
 		
