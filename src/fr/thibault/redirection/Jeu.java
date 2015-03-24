@@ -1,68 +1,50 @@
 package fr.thibault.redirection;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-
-import fr.thibault.redirection.niveau.Niveau;
-import fr.thibault.redirection.ui.Menu;
-import fr.thibault.redirection.ui.MenuNiveaux;
-import fr.thibault.redirection.ui.MenuOption;
+import fr.thibault.redirection.screens.MainMenuScreen;
+import fr.thibault.redirection.screens.Screen;
 
 public class Jeu {
 	
-	Niveau niv;
+	public static Jeu i;
 	
-	int[] nbBlocs = {2, 4, 4, 8, 7};
+	public int[] nbBlocs = {2, 4, 4, 8, 5, 8, 10};
 	
-	Menu menu;
-	MenuOption option;
-	MenuNiveaux niveaux;
+	Screen screen;
 	
-	public static int volume = 5;
+	public int difficulte = 0;
+	public int volume = 5;
 	
-	public static boolean lance = false;
+	public int numNiveau;
+	public int nbBlocsSup = 2;
 	
-	public static String scene = "MENU";
-	public static int numNiveau = 0;
-	public static int nbBlocsSup = 2;
+	public int niveauMax = 6;
 	
-	public void init(GameContainer container) throws SlickException{		
-		menu = new Menu();
-		option = new MenuOption();
-		niveaux = new MenuNiveaux();
+	public int niveauAtteint = 0;
+	
+	public boolean nivTermine = false;
+	
+	public Jeu(){
+		i = this;
+		this.numNiveau = 0;
 	}
 	
-	public void update(GameContainer container, int delta) throws SlickException{
-		if(scene == "MENU")
-			menu.update(container);
-		
-		if(scene == "OPTION")
-			option.update(container);
-		
-		if(scene == "NIVEAUX")
-			niveaux.update(container);
-		
-		if(scene == "JEU"){
-			if(lance){
-				niv = new Niveau(numNiveau, nbBlocs[numNiveau] + nbBlocsSup);
-				lance = false;
-			}
-			niv.update(container);
-		}
+	public void init(){
+		screen = new MainMenuScreen();
 	}
 	
-	public void render(GameContainer container, Graphics g){
-		if(scene == "MENU")
-			menu.render(g);
-		
-		if(scene == "OPTION")
-			option.render(g);
-		
-		if(scene == "NIVEAUX")
-			niveaux.render(g);
-		
-		if(scene == "JEU")
-			niv.render(g);
+	public void update(){
+		screen.update();
+	}
+	
+	public void render(){		
+		screen.render();
+	}
+	
+	public void setCurrentScreen(Screen screen){
+		this.screen = screen;
+	}
+	
+	public Screen getCurrentScreen(){
+		return this.screen;
 	}
 }

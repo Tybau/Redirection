@@ -1,49 +1,42 @@
 package fr.thibault.redirection.terrain;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
-import fr.thibault.redirection.Jeu;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.util.Color;
+
 import fr.thibault.redirection.niveau.Niveau;
 import fr.thibault.redirection.terrain.blocs.Blocs;
+import fr.thibault.redirection.utils.Formes;
+import fr.thibault.redirection.utils.Inputs;
+import fr.thibault.redirection.utils.Text;
+import fr.thibault.redirection.utils.Texture;
 
 public class Terrain {
 	
 	public static Blocs[][] blocs = new Blocs[Niveau.nbCase][Niveau.nbCase];
+	private int nbBlocs;
 	
-	Input input;
-	int nbBlocs;
+	private Blocs mur, murPose, sol, fin;
+	private Texture niveau, bloc;
 	
-	Image niv, blocLogo;
-	Blocs mur, murPose, sol, fin;
-	
-	Sound blocSon;
-	
-	public Terrain(Image niveau, int nbBlocs) throws SlickException{
+	public Terrain(int niv, int nbBlocs){
 		this.nbBlocs = nbBlocs;
-		this.niv = niveau;
 		
-		blocLogo = new Image("/assets/textures/blocs.png");
-		mur = new Blocs("mur", "BASE", true);
-		murPose = new Blocs("mur_pose", "BASE", true);
-		sol = new Blocs("sol", "BASE", false);
-		fin = new Blocs("fin", "WIN", false);
+		this.mur = new Blocs("blocs/mur.png", "BASE", true);
+		this.murPose = new Blocs("blocs/mur_pose.png", "BASE", true);
+		this.sol = new Blocs("blocs/sol.png", "BASE", false);
+		this.fin = new Blocs("blocs/fin.png", "WIN", false);
 		
-		blocSon = new Sound("/assets/sons/bloc.ogg");
+		this.niveau = new Texture("niveaux/NIV_" + niv + ".png", GL_NEAREST);
+		this.bloc = new Texture("blocs.png", GL_NEAREST);
 		
 		for (int x = 0; x < Niveau.nbCase; x ++){
 			for (int y = 0; y < Niveau.nbCase; y ++){
-				if (niv.getColor(x, y).getRed() == 0 &&
-					niv.getColor(x, y).getBlue() == 0 &&
-					niv.getColor(x, y).getGreen()== 0)
+				if (niveau.getImage(niveau).getRGB(x, y) == 0xff000000)
 					blocs[x][y] = mur;
-				else if (niv.getColor(x, y).getRed() == 255 &&
-						niv.getColor(x, y).getBlue() == 0 &&
-						niv.getColor(x, y).getGreen()== 0)
+				else if (niveau.getImage(niveau).getRGB(x, y) == 0xffff0000)
 						blocs[x][y] = fin;
 				else
 					blocs[x][y] = sol;
@@ -51,28 +44,28 @@ public class Terrain {
 		}
 	}
 	
-	public void update(GameContainer container, int joueurX, int joueurY){
-		input = container.getInput();
-		
-		if(input.isMousePressed(0) && input.getMouseX() <= Niveau.taille * Niveau.nbCase && input.getMouseY() <= Niveau.taille * Niveau.nbCase && nbBlocs != 0){
-			if(input.getMouseX() / Niveau.taille != joueurX || input.getMouseY() / Niveau.taille != joueurY){
-				if(!blocs[input.getMouseX() / Niveau.taille][input.getMouseY() / Niveau.taille].estSolide &&
-				   blocs[input.getMouseX() / Niveau.taille][input.getMouseY() / Niveau.taille].type == "BASE"){
-					blocs[input.getMouseX() / Niveau.taille][input.getMouseY() / Niveau.taille] = murPose;
+	public void update(int joueurX, int joueurY){		
+		if(Inputs.isMouseButtonPressed(0) && Mouse.getX() <= Niveau.taille * Niveau.nbCase && Display.getHeight() - Mouse.getY() <= Niveau.taille * Niveau.nbCase && nbBlocs != 0){
+			if(Mouse.getX() / Niveau.taille != joueurX || Display.getHeight() - Mouse.getY() / Niveau.taille != joueurY){
+				if(!blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille].estSolide &&
+				   blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille].type == "BASE"){
+					blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille] = murPose;
 					nbBlocs--;
-					blocSon.play(1, (float)Jeu.volume / 10);
 				}
 			}
 		}
 	}
 	
-	public void render(Graphics g){
+	public void render(){
 		for (int x = 0; x < Niveau.nbCase; x ++){
 			for (int y = 0; y < Niveau.nbCase; y ++){
-				blocs[x][y].render(g, x, y);
+				blocs[x][y].render(x, y);
 			}
 		}
-		g.drawString(nbBlocs + " x ", 50, 550);
-		blocLogo.draw(90, 550, 20, 20);
+		Text.text(65, 550, 4, nbBlocs + "x", 16, new Color(Color.RED), false);
+		
+		bloc.bind();
+		Formes.carre(100, 550, 20, 20);
+		Texture.unbind();
 	}
 }

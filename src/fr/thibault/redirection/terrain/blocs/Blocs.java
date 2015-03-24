@@ -1,28 +1,27 @@
 package fr.thibault.redirection.terrain.blocs;
 
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-
 import fr.thibault.redirection.niveau.Niveau;
+import fr.thibault.redirection.utils.Formes;
+import fr.thibault.redirection.utils.Texture;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class Blocs {
-	
-	String texture;
 	public boolean estSolide;
 	public String type;
 	
-	Image img;
+	private Texture texture;
 	
-	public Blocs(String texture, String type, boolean estSolide) throws SlickException{
-		this.texture = texture;
+	public Blocs(String path, String type, boolean estSolide){
 		this.type = type;
 		this.estSolide = estSolide;
 		
-		img = new Image("/assets/textures/blocs/" + texture + ".png");
+		this.texture = new Texture(path, GL_NEAREST);
 	}
 	
-	public void render(Graphics g, int x, int y){
-		img.draw(x * Niveau.taille, y * Niveau.taille, Niveau.taille, Niveau.taille);
+	public void render(int x, int y){
+		this.texture.bind();
+		Formes.carre(x * Niveau.taille, y * Niveau.taille, Niveau.taille, Niveau.taille);
+		Texture.unbind();
 	}
 }

@@ -1,68 +1,85 @@
 package fr.thibault.redirection;
 
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
 
-public class GameMain extends BasicGame{
+import static org.lwjgl.opengl.GL11.*;
+
+public class GameMain{
 
 	Jeu j;
 	
-	long dernNano = System.nanoTime();
-	long dernSecond = dernNano;
-	public static long ticks;
-	int tps;
+	String title;
 	
-	static AppGameContainer a;
-	
-	public GameMain(String title) {
-		super(title);
-		
+	public GameMain() {
 		j = new Jeu();										//Appelle de la Class du Jeu
 	}
 	
 	public static void main(String[] args){					//Fonction Principale
 		try {
-			a = new AppGameContainer(new GameMain("Redirection"));
-			a.setDisplayMode(1000, 600, false);				//Création d'une fenetre
-			a.start();
+			Display.setDisplayMode(new DisplayMode(1000, 600));
+			Display.create();
 			
-		} catch (SlickException e) {
+			glEnable(GL_TEXTURE_2D);
+
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            
+            glOrtho(0, 1000, 600, 0, -1, 1);
+		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
+		new GameMain().boucle();
 	}
 	
-	@Override
-	public void init(GameContainer container) throws SlickException {		//Initialisation
+	public void boucle(){
+		init();
+		while (!Display.isCloseRequested()) {
+			if(System.nanoTime() >= dernTick + 1000000000 / 60){
+				update();
+				dernTick += 1000000000 / 60;
+				ticks++;
+				tps++;
+			}
+			
+			if(System.nanoTime() >= dernFrame + 1000000000 / 120){
+				glClearColor(0, 0, 0, 1);
+				render();
+				Display.update();
+				dernFrame += 1000000000 / 120;
+				frames++;
+				fps++;
+			}
+			
+			if(System.nanoTime() >= dernSecond + 1000000000){
+				dernSecond += 1000000000;
+				Display.setTitle("Redirection     ||     TPS: " + tps + "  |  FPS: " + fps);
+				tps = 0;
+				fps = 0;
+			}
+		}
+		Display.destroy();
+		System.exit(0);
+	}
+	
+	public void init() {		//Initialisation
 		System.err.println("[ Redirection ] La fenètre à été créé!");
-		j.init(container);
+		j.init();
+	}
+	
+	long dernTick = System.nanoTime();
+	long dernFrame = System.nanoTime();
+	long dernSecond = System.nanoTime();
+	long ticks, frames;
+	int tps, fps;
+
+	public void update(){					//Mise à jour
+		j.update();
 	}
 
-	@Override
-	public void update(GameContainer container, int delta)					//Mise à jour
-			throws SlickException {
-		a.setShowFPS(false);
-		
-		if(System.nanoTime() >= dernNano + 1000000000 / 60){
-			j.update(container, delta);
-			dernNano += 1000000000 / 60;
-			ticks++;
-			tps++;
-		}
-		
-		if(System.nanoTime() >= dernSecond + 1000000000){
-			dernSecond += 1000000000;
-			a.setTitle("Redirection     ||     TPS: " + tps + "   |   FPS: " + a.getFPS());
-			tps = 0;
-		}
-	}
-
-	@Override
-	public void render(GameContainer container, Graphics g)					//Rendu
-			throws SlickException {
-		j.render(container, g);
+	public void render(){					//Rendu
+		j.render();
 	}
 
 }
