@@ -69,22 +69,22 @@ public class OptionScreen extends Screen{
 		//Son
 		
 		if(choix == 0)
-			Text.text(75, 150, 255, "Volume: " + Jeu.i.volume, 16, new Color(Color.RED), false);
+			Text.drawText(75, 150, "Volume: " + Jeu.i.volume, 12, new Color(Color.RED));
 		else
-			Text.text(75, 150, 255, "Volume: " + Jeu.i.volume, 16, new Color(Color.BLACK), false);
+			Text.drawText(75, 150, "Volume: " + Jeu.i.volume, 12, new Color(Color.WHITE));
 		
 		//difficulte
 		
 		if(choix == 1)
-			Text.text(75, 200, 255, "Difficulté: " + difficulte, 16, new Color(Color.RED), false);
+			Text.drawText(75, 200, "Difficulté: " + difficulte, 12, new Color(Color.RED));
 		else
-			Text.text(75, 200, 255, "Difficulté: " + difficulte, 16, new Color(Color.BLACK), false);
+			Text.drawText(75, 200, "Difficulté: " + difficulte, 12, new Color(Color.WHITE));
 		
 		//Retour MENU
 		
 		if(choix == 2)
-			Text.text(75, 500, 255, "Menu", 16, new Color(Color.RED), false);
+			Text.drawText(75, 500, "Menu", 12, new Color(Color.RED));
 		else
-			Text.text(75, 500, 255, "Menu", 16, new Color(Color.BLACK), false);
+			Text.drawText(75, 500, "Menu", 12, new Color(Color.WHITE));
 	}
 }

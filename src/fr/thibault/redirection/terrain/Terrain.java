@@ -62,7 +62,7 @@ public class Terrain {
 				blocs[x][y].render(x, y);
 			}
 		}
-		Text.text(65, 550, 4, nbBlocs + "x", 16, new Color(Color.RED), false);
+		Text.drawText(65, 550, nbBlocs + "x", 14, new Color(Color.WHITE));
 		
 		bloc.bind();
 		Formes.carre(100, 550, 20, 20);

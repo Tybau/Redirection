@@ -8,16 +8,15 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class GameMain{
 
-	Jeu j;
-	
-	String title;
+	private Jeu j;
 	
 	public GameMain() {
-		j = new Jeu();										//Appelle de la Class du Jeu
+		this.j = new Jeu();		//Appelle de la Class du Jeu
 	}
 	
-	public static void main(String[] args){					//Fonction Principale
+	public static void main(String[] args){		//Fonction Principale éxécuté par Java
 		try {
+			//Création de la fenètre
 			Display.setDisplayMode(new DisplayMode(1000, 600));
 			Display.create();
 			
@@ -33,52 +32,49 @@ public class GameMain{
 		new GameMain().boucle();
 	}
 	
-	public void boucle(){
-		init();
+	private long dernTick = System.nanoTime();
+	private long dernFrame = System.nanoTime();
+	private long dernSecond = System.nanoTime();
+	private int tps, fps;
+	
+	public void boucle(){		//Fonction lançant la boucle du jeu.
+		init();		//Initialisation du jeu
 		while (!Display.isCloseRequested()) {
 			if(System.nanoTime() >= dernTick + 1000000000 / 60){
-				update();
+				update();		//Calcules
 				dernTick += 1000000000 / 60;
-				ticks++;
 				tps++;
 			}
 			
 			if(System.nanoTime() >= dernFrame + 1000000000 / 120){
 				glClearColor(0, 0, 0, 1);
-				render();
+				render();		//Rendus
 				Display.update();
 				dernFrame += 1000000000 / 120;
-				frames++;
 				fps++;
 			}
 			
 			if(System.nanoTime() >= dernSecond + 1000000000){
 				dernSecond += 1000000000;
-				Display.setTitle("Redirection     ||     TPS: " + tps + "  |  FPS: " + fps);
+				Display.setTitle("Redirection     ||     TPS: " + tps + "  |  FPS: " + fps);		//Affichage du titre du programme
 				tps = 0;
 				fps = 0;
 			}
 		}
-		Display.destroy();
-		System.exit(0);
+		Display.destroy();		//Destruction de la fenètre
+		System.exit(0);		//Fermeture du programme
 	}
 	
-	public void init() {		//Initialisation
+	public void init() {
 		System.err.println("[ Redirection ] La fenètre à été créé!");
 		j.init();
 	}
-	
-	long dernTick = System.nanoTime();
-	long dernFrame = System.nanoTime();
-	long dernSecond = System.nanoTime();
-	long ticks, frames;
-	int tps, fps;
 
-	public void update(){					//Mise à jour
+	public void update(){
 		j.update();
 	}
 
-	public void render(){					//Rendu
+	public void render(){
 		j.render();
 	}
 

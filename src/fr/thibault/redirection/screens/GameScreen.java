@@ -6,7 +6,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import fr.thibault.redirection.Jeu;
-import fr.thibault.redirection.gui.Gui;
+import fr.thibault.redirection.gui.GuiButton;
 import fr.thibault.redirection.niveau.Niveau;
 import fr.thibault.redirection.utils.Formes;
 import fr.thibault.redirection.utils.Inputs;
@@ -58,9 +58,9 @@ public class GameScreen extends Screen{
 			this.titre.bind();
 			Formes.carre(Display.getWidth() / 2 - titre.getWidth() / 2, 50, titre.getWidth(), titre.getHeight());
 			Texture.unbind();
-			if(Gui.button("Reprendre", Display.getWidth() / 2 - 158, 200)) enPause = false;
-			if(Gui.button("Recommencer", Display.getWidth() / 2 - 182, 250)) Jeu.i.setCurrentScreen(new GameScreen(numNiveau, Jeu.i.nbBlocs, nbBlocsSup));
-			if(Gui.button("Menu", Display.getWidth() / 2 - 98, 300)) Jeu.i.setCurrentScreen(new MainMenuScreen());
+			if(GuiButton.create("Reprendre", Display.getWidth() / 2 - 158, 200)) enPause = false;
+			if(GuiButton.create("Recommencer", Display.getWidth() / 2 - 182, 250)) Jeu.i.setCurrentScreen(new GameScreen(numNiveau, Jeu.i.nbBlocs, nbBlocsSup));
+			if(GuiButton.create("Menu", Display.getWidth() / 2 - 98, 300)) Jeu.i.setCurrentScreen(new MainMenuScreen());
 			
 			return;
 		}

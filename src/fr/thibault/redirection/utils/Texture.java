@@ -20,10 +20,10 @@ public class Texture {
         int[] pixels = null;
 
         try {
-            image = ImageIO.read(Texture.class.getResourceAsStream("/textures/" + path));
-            width = image.getWidth();
-            height = image.getHeight();
-            pixels = new int[width * height];
+            image = ImageIO.read(Texture.class.getResourceAsStream("/textures/" + path));		//On récupère l'image dans un BufferedImage
+            width = image.getWidth();		//On récupère sa largeur
+            height = image.getHeight();		//On récupère sa hauteur
+            pixels = new int[width * height];		//On règle la taille du tableau sur le nombre de pixels de l'image
             image.getRGB(0, 0, width, height, pixels, 0, width);
         }catch (IOException e){
             e.printStackTrace();
@@ -31,16 +31,16 @@ public class Texture {
 
         int[] data = new int[width * height];
         for(int i = 0; i < data.length; i++){
-            int a = (pixels[i] & 0xff000000) >> 24;
-            int r = (pixels[i] & 0xff0000) >> 16;
-            int g = (pixels[i] & 0xff00) >> 8;
-            int b = (pixels[i] & 0xff);
+            int a = (pixels[i] & 0xff000000) >> 24;		//On récupère la partie de l'hexadécimal correspondant à la transparence du pixel i
+            int r = (pixels[i] & 0xff0000) >> 16;		//On récupère la partie de l'hexadécimal correspondant au rouge du pixel i
+            int g = (pixels[i] & 0xff00) >> 8;			//On récupère la partie de l'hexadécimal correspondant au vert du pixel i
+            int b = (pixels[i] & 0xff);					//On récupère la partie de l'hexadécimal correspondant au bleu du pixel i
 
-            data[i] = a << 24 | b << 16 | g << 8 | r;
+            data[i] = a << 24 | b << 16 | g << 8 | r;		//On renvoie la couleur total du pixel dans la case i de data (donnée en français)
         }
 
         int id = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, id);
+        glBindTexture(GL_TEXTURE_2D, id);		
 
         glEnable(GL_BLEND);
 

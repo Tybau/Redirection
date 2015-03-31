@@ -84,11 +84,11 @@ public class Joueur {
 		Texture.unbind();
 		
 		if(!peutBouger){
-			Text.text(600, 150, 255, "Tu as gagné !", 16, new Color(Color.RED), false);
+			Text.drawText(600, 150, "Tu as gagne !", 16, new Color(Color.WHITE));
 			Jeu.i.nivTermine = true;
 			Jeu.i.niveauAtteint = Jeu.i.numNiveau + 1;
 		}else{
-			Text.text(600, 150, 255, "     Niveau:\nLe but de ce jeu est de\nparvenir à la croix rouge\nen posant des blocs pour\nfaire tourner le joueur.", 16, new Color(Color.RED), false);
+			Text.drawText(600, 150, "     Niveau:\nLe but de ce jeu est de\nparvenir a la croix rouge\nen posant des blocs pour\nfaire tourner le joueur.", 12, new Color(Color.WHITE));
 		}
 	}
 	

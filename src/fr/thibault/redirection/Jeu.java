@@ -7,7 +7,7 @@ public class Jeu {
 	
 	public static Jeu i;
 	
-	public int[] nbBlocs = {2, 4, 4, 8, 5, 8, 10};
+	public int[] nbBlocs = {2, 4, 4, 8, 5, 8, 10};		//Tableau des nobres de blocs donné en fonction des niveaux 
 	
 	Screen screen;
 	
@@ -15,7 +15,7 @@ public class Jeu {
 	public int volume = 5;
 	
 	public int numNiveau;
-	public int nbBlocsSup = 2;
+	public int nbBlocsSup = 2;		//Nombres de blocs donné en plus selon la difficulté (par défaut facile avec 2 blocs suplémentaires)
 	
 	public int niveauMax = 6;
 	

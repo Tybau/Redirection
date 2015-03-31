@@ -4,222 +4,54 @@ import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.util.Color;
 
-public class Text
-{
-	private static Texture[] fonts = new Texture[] {new Texture("fonts/font2 - 1.png", GL_LINEAR), new Texture("fonts/font2 - 2.png", GL_LINEAR), new Texture("fonts/font2 - 3.png", GL_LINEAR), new Texture("fonts/font2 - 4.png", GL_LINEAR)};
-	private static boolean toEnderligne = false;
+public class Text {
 	
-	public static final String chars 	= "abcdefghijklm"	//
-                            			+ "nopqrstuvwxyz"	//
-                            			+ "ABCDEFGHIJKLM"	//
-                            			+ "NOPQRSTUVWXYZ"	//
-                            			+ "0123456789!?#"	//
-                            			+ "(){}+-%/\\*\"'@"	//
-                            			+ "[]éàèç_&^$€.," 	//
-                            			+ ";:êëôöµù     ";	//
+	private static Texture font = new Texture("fonts/font.png", GL_NEAREST);
 
-	public static float getStringSize(int textSize, int maxX)
-	{
-		if(textSize >= maxX)
-			return maxX;
-		else
-			return (float)textSize / 2.0f;
-	}
+	private static String chars = "" +
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ      " +
+			"0123456789.,!?'\"-+=/\\%()<>:;     ";		//Chaine de charactère montrant l'emplacement des lettres dans le font.png
 
-	public static int getPurcent(int purcent, int i)
-	{
-		return i - (i * purcent / 100);
-	}
+	public static void drawText(int x, int y, String text, int size, Color color) {
+		int line = 0;
+		int character = 0;
 
-	public static String formatString(String lines, int max)
-	{
-		String maChaine = lines;
-		int i = 0, index = -1;
-		int searchMax = max;
-		if (max > lines.length()) searchMax = lines.length();
-		boolean canProcede = false;
-		for(int j = 1; j < searchMax; j++)
-		{
-			if (lines.charAt(j) == ' ') canProcede = true;
-		}
-		while(i + max < lines.length() - 1)
-		{
-			if (canProcede) index = maChaine.substring(i, i + max).lastIndexOf(' ');
-			else index = searchMax;
-			if(index != -1)
-				if (canProcede) maChaine = maChaine.substring(0, (index + i) + 1) + '\n' + maChaine.substring((index + i) + 1);
-				else maChaine = maChaine.substring(0, (index + i)) + '\n' + maChaine.substring((index + i));
-			else
-				maChaine = maChaine.substring(0, i + 1) + '\n' + maChaine.substring(i + 1);
-			i += index + 1;
-		}
-		return maChaine;
-	}
-	
-	public static void text(int x, int y, int Xe, String text, int size, Color color, boolean centered)
-	{
-		float textSize = ((float)(text.length()) / 2.0f);
-		if(text.length() > Xe) textSize = Xe;
-
-		if(centered) Xe*=2;
-
-		int sizeX = getPurcent(40, size);
-		glColor4f((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
-
-		fonts[getFontSize(size)].bind();
-		
-		text = formatString(text, Xe);
-		int b = 0;
-		
+		String msg = text.toUpperCase();		//On met tout le texte en majuscule
+		glColor3f(color.getRed(), color.getGreen(), color.getBlue());		//On règle la couleur sur celle choisis
+		font.bind();		//On utilise la texture font.png
 		glBegin(GL_QUADS);
-		for(int i = 0; i < text.length(); i++)
-		{
-			if(text.charAt(i) == '\n')
-			{
-				b = 0;
-				y += size;
-				if(text.charAt(i) == '\n')
-					continue;
+		for (int i = 0; i < msg.length(); i++) {
+
+			if (msg.charAt(i) == '\n') {		//On vérifie si le charactère n'est pas celui d'un retour à la ligne
+				line++;
+				character = 0;
 			}
-			
-			if(centered)
-			{
-				charData((float)(x - (textSize * sizeX)) + b * (sizeX), y, text.charAt(i), size, false, false);
+
+			//On recherche l'emplacement du charactère dans la texture
+			int ix = chars.indexOf(msg.charAt(i));
+			int iy = 0;
+			if (ix >= 32)
+				iy = 1;
+			if (iy >= 0) {
+				if (ix >= 0) {
+					float xx = x + character * size;
+					float yy = y + line * (size + 2);
+
+					float yo = iy;
+					float xo = ix % 32;
+					float texSize = 32.0f;
+
+					//On dessine le charactère dans un carré 
+					glTexCoord2f((1 + xo) / texSize, (0 + yo) / 2.0f);		glVertex2f(xx + size, yy);
+					glTexCoord2f((0 + xo) / texSize, (0 + yo) / 2.0f);		glVertex2f(xx, yy);
+					glTexCoord2f((0 + xo) / texSize, (1 + yo) / 2.0f);		glVertex2f(xx, yy + size);
+					glTexCoord2f((1 + xo) / texSize, (1 + yo) / 2.0f);		glVertex2f(xx + size, yy + size);
+				}
 			}
-			else
-			{
-				charData(x + b * (sizeX), y, text.charAt(i), size, false, false);
-			}
-			b++;
+			character++;
 		}
 		glEnd();
-		Texture.unbind();
-
-		glColor4f(1, 1, 1, 1);
-	}
-	
-	public static void text(int x, int y, int Xe, String text, int size, Color color, boolean centered, boolean underligned, boolean backLigned)
-	{
-		float textSize = ((float)(text.length()) / 2.0f);
-		if(text.length() > Xe) textSize = Xe;
-
-		if(centered) Xe*=2;
-
-		int sizeX = getPurcent(40, size);
-		glColor4f((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
-
-		fonts[getFontSize(size)].bind();
-		
-		text = formatString(text, Xe);
-		int b = 0;
-		
-		glBegin(GL_QUADS);
-		for(int i = 0; i < text.length(); i++)
-		{
-			if(text.charAt(i) == '\n')
-			{
-				b = 0;
-				y += size;
-				if(text.charAt(i) == '\n')
-					continue;
-			}
-
-			boolean lowChar =  text.charAt(i) == 'g'
-        					|| text.charAt(i) == 'j'
-        					|| text.charAt(i) == 'p'
-        					|| text.charAt(i) == 'q'
-        					|| text.charAt(i) == 'y'
-        					|| text.charAt(i) == '('
-        					|| text.charAt(i) == ')'
-        					|| text.charAt(i) == '}'
-        					|| text.charAt(i) == '{'
-        					|| text.charAt(i) == ']'
-        					|| text.charAt(i) == '['
-        					|| text.charAt(i) == 'µ'
-        					|| text.charAt(i) == '/'
-        					|| text.charAt(i) == '\\';
-			if (underligned) toEnderligne = lowChar ? false : true;
-			else toEnderligne = false;
-			
-			if(centered)
-			{
-				charData((float)(x - (textSize * sizeX)) + b * (sizeX), y, text.charAt(i), size, toEnderligne, backLigned);
-			}
-			else
-			{
-				charData(x + b * (sizeX), y, text.charAt(i), size, toEnderligne, backLigned);
-			}
-			b++;
-		}
-		glEnd();
-		Texture.unbind();
-
-		glColor4f(1, 1, 1, 1);
-	}
-	
-
-	private static int getFontSize(int size)
-	{
-		int f = 0;
-		if(size >= 48)
-		{
-			f = 0;
-		}
-		else if(size >= 24 || size < 48)
-		{
-			f = 1;
-		}
-		else if(size >= 12 || size < 24)
-		{
-			f = 2;
-		}
-		else
-		{
-			f = 3;
-		}
-
-		return f;
-	}
-	
-	private static void charData(float x, float y, char character, int size, boolean underligned, boolean backLigned)
-	{
-		int sizeX = getPurcent(40, size);
-		int tex = chars.indexOf(character);
-		float w = 13.0f;
-		float h = 13.0f;
-		float xo = tex % (int)w;
-		float yo = tex / (int)w;
-
-		if(backLigned)
-		{
-			glColor4f(0.5f, 0.5f, 0.5f, 0.8f);
-				glTexCoord2f((0 + 12) / w, (0 + 12) / h);
-    			glVertex2f(x+2, y);
-    			glVertex2f(x + sizeX+2, y);
-    			glVertex2f(x + sizeX+2, y + size);
-    			glVertex2f(x+2, y + size);
-			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		}
-		
-		if(underligned)
-		{
-			glTexCoord2f((0 + 12) / w, (0 + 12) / h);
-			glVertex2f(x+2, y + size - size / 10);
-			glVertex2f(x + sizeX + 2, y + size - size / 10);
-			glVertex2f(x + sizeX + 2, y + size);
-			glVertex2f(x+2, y + size);
-		}
-		
-		glTexCoord2f((0 + xo) / w, (0 + yo) / h);
-		glVertex2f(x, y);
-
-		glTexCoord2f((1 + xo) / w, (0 + yo) / h);
-		glVertex2f(x + size, y);
-
-		glTexCoord2f((1 + xo) / w, (1 + yo) / h);
-		glVertex2f(x + size, y + size);
-
-		glTexCoord2f((0 + xo) / w, (1 + yo) / h);
-		glVertex2f(x, y + size);
+		Texture.unbind();		//On décharge la texture font.png
+		glColor3f(1, 1, 1);			//On remet la couleur à blanc
 	}
 }
