@@ -62,6 +62,7 @@ public class GameMain{
 			}
 		}
 		Display.destroy();		//Destruction de la fenètre
+		System.err.println("[ Redirection ] Fin du jeu!");
 		System.exit(0);		//Fermeture du programme
 	}
 	

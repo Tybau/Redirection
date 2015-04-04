@@ -84,11 +84,11 @@ public class Joueur {
 		Texture.unbind();
 		
 		if(!peutBouger){
-			Text.drawText(600, 150, "Tu as gagne !", 16, new Color(Color.WHITE));
+			Text.drawText(600, 150, "Tu as gagne !", 16, new Color(Color.BLACK));
 			Jeu.i.nivTermine = true;
 			Jeu.i.niveauAtteint = Jeu.i.numNiveau + 1;
 		}else{
-			Text.drawText(600, 150, "     Niveau:\nLe but de ce jeu est de\nparvenir a la croix rouge\nen posant des blocs pour\nfaire tourner le joueur.", 12, new Color(Color.WHITE));
+			Text.drawText(600, 150, "     Niveau:\nLe but de ce jeu est de\nparvenir a la croix rouge\nen posant des blocs pour\nfaire tourner le joueur.", 12, new Color(Color.BLACK));
 		}
 	}
 	
@@ -103,5 +103,13 @@ public class Joueur {
 	public void setXY(int x, int y){
 		this.x = x;
 		this.y = y;
+	}
+	
+	public String getMove(){
+		return move;
+	}
+	
+	public void setMove(String v){
+		this.move = v;
 	}
 }

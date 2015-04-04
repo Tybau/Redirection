@@ -52,27 +52,27 @@ public class MainMenuScreen extends Screen{
 		if(choix == 0)
 			Text.drawText(75, 150, "Jouer", 20, new Color(Color.RED));
 		else
-			Text.drawText(75, 150, "Jouer", 20, new Color(Color.WHITE));
+			Text.drawText(75, 150, "Jouer", 20, new Color(Color.BLACK));
 		
 		//Niveaux
 		
 		if(choix == 1)
 			Text.drawText(75, 200, "Niveaux", 20, new Color(Color.RED));
 		else
-			Text.drawText(75, 200, "Niveaux", 20, new Color(Color.WHITE));
+			Text.drawText(75, 200, "Niveaux", 20, new Color(Color.BLACK));
 		
 		//Option
 		
 		if(choix == 2)
 			Text.drawText(75, 250, "Options", 20, new Color(Color.RED));
 		else
-			Text.drawText(75, 250, "Options", 20, new Color(Color.WHITE));
+			Text.drawText(75, 250, "Options", 20, new Color(Color.BLACK));
 		
 		//Fermer
 		
 		if(choix == 3)
 			Text.drawText(75, 500, "Fermer", 20, new Color(Color.RED));
 		else
-			Text.drawText(75, 500, "Fermer", 20, new Color(Color.WHITE));
+			Text.drawText(75, 500, "Fermer", 20, new Color(Color.BLACK));
 	}
 }

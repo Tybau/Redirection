@@ -28,4 +28,8 @@ public class Blocs {
 	public Texture getTexture(){
 		return texture;
 	}
+	
+	public void setEstSolide(boolean v){
+		estSolide = v;
+	}
 }

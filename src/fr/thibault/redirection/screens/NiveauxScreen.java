@@ -4,8 +4,11 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.Color;
 
 import fr.thibault.redirection.Jeu;
+import fr.thibault.redirection.utils.Formes;
 import fr.thibault.redirection.utils.Inputs;
 import fr.thibault.redirection.utils.Text;
+import fr.thibault.redirection.utils.Texture;
+import static org.lwjgl.opengl.GL11.*;
 
 public class NiveauxScreen extends Screen{
 
@@ -15,6 +18,8 @@ public class NiveauxScreen extends Screen{
 	private int niveauMax;
 	private int niveauAtteint;
 	
+	private Texture nivCharge;
+	
 	public NiveauxScreen() {
 		this.title = "Niveaux";
 		this.choix = 0;
@@ -22,6 +27,8 @@ public class NiveauxScreen extends Screen{
 		this.niveau = Jeu.i.numNiveau;
 		this.niveauMax = Jeu.i.niveauMax;
 		this.niveauAtteint = Jeu.i.niveauAtteint;
+		
+		this.nivCharge = new Texture("niveaux/NIV_" + niveau + ".png" , GL_NEAREST);
 	}
 	
 	@Override
@@ -51,6 +58,8 @@ public class NiveauxScreen extends Screen{
 		
 		if(Inputs.isKeyboardKeyPressed(Keyboard.KEY_UP) && choix > 0)
 			choix--;
+		
+		this.nivCharge = new Texture("niveaux/NIV_" + niveau + ".png" , GL_NEAREST);
 	}
 	
 	@Override
@@ -60,13 +69,16 @@ public class NiveauxScreen extends Screen{
 		if(choix == 0)
 			Text.drawText(75, 150, "Niveau: " + niveau, 20, new Color(Color.RED));
 		else
-			Text.drawText(75, 150, "Niveau: " + niveau, 20, new Color(Color.WHITE));
+			Text.drawText(75, 150, "Niveau: " + niveau, 20, new Color(Color.BLACK));
 		
 		//Retour MENU
 		
 		if(choix == 1)
 			Text.drawText(75, 500, "Menu", 20, new Color(Color.RED));
 		else
-			Text.drawText(75, 500, "Menu", 20, new Color(Color.WHITE));
+			Text.drawText(75, 500, "Menu", 20, new Color(Color.BLACK));
+		
+		nivCharge.bind();
+		Formes.carre(550, 150, 300, 300);
 	}
 }

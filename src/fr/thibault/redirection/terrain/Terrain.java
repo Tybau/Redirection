@@ -19,7 +19,7 @@ public class Terrain {
 	public static Blocs[][] blocs = new Blocs[Niveau.nbCase][Niveau.nbCase];
 	private int nbBlocs;
 	
-	private Blocs mur, murPose, sol, fin, tuto, invisible, tpDepart, tpArrive;
+	private Blocs mur, murPose, sol, fin, tuto, invisible, tpDepart, tpArrive, reverse, cassable;
 	private Texture niveau, bloc;
 	
 	public Terrain(int niv, int nbBlocs){
@@ -34,6 +34,8 @@ public class Terrain {
 		this.invisible = new Blocs("blocs/sol.png", "INVI", true);
 		this.tpDepart = new Blocs("blocs/tp_depart.png", "TPD", false);
 		this.tpArrive = new Blocs("blocs/tp_arrive.png", "TPA", false);
+		this.reverse = new Blocs("blocs/reverse.png", "REVE", false);
+		this.cassable = new Blocs("blocs/cassable.png", "CASE", true);
 		
 		this.niveau = new Texture("niveaux/NIV_" + niv + ".png", GL_NEAREST);
 		this.bloc = new Texture("blocs.png", GL_NEAREST);
@@ -53,6 +55,10 @@ public class Terrain {
 					blocs[x][y] = tpDepart;
 				else if (niveau.getImage(niveau).getRGB(x, y) == 0xffff00ff)
 					blocs[x][y] = tpArrive;
+				else if (niveau.getImage(niveau).getRGB(x, y) == 0xff560076)
+					blocs[x][y] = reverse;
+				else if (niveau.getImage(niveau).getRGB(x, y) == 0xff3d0f0f)
+					blocs[x][y] = cassable;
 				else
 					blocs[x][y] = sol;
 			}
@@ -96,6 +102,35 @@ public class Terrain {
 				}
 			}
 		}
+		
+		/* Verification du bloc reverse */
+		if(blocs[joueurX][joueurY].type.equalsIgnoreCase("REVE")){
+			if(joueur.getMove().equalsIgnoreCase("R"))
+				joueur.setMove("L");
+			if(joueur.getMove().equalsIgnoreCase("L"))
+				joueur.setMove("R");
+			if(joueur.getMove().equalsIgnoreCase("U"))
+				joueur.setMove("D");
+			if(joueur.getMove().equalsIgnoreCase("D"))
+				joueur.setMove("U");
+		}
+		
+		/* Verification des blocs cassable autour du joueur */
+		if(blocs[joueurX + 1][joueurY].type.equalsIgnoreCase("CASE")){
+			blocs[joueurX + 1][joueurY] = sol;
+		}
+		
+		if(blocs[joueurX - 1][joueurY].type.equalsIgnoreCase("CASE")){
+			blocs[joueurX - 1][joueurY] = sol;
+		}
+		
+		if(blocs[joueurX][joueurY + 1].type.equalsIgnoreCase("CASE")){
+			blocs[joueurX][joueurY + 1] = sol;
+		}
+		
+		if(blocs[joueurX][joueurY - 1].type.equalsIgnoreCase("CASE")){
+			blocs[joueurX][joueurY - 1] = sol;
+		}
 	}
 	
 	public void render(){
@@ -104,7 +139,7 @@ public class Terrain {
 				blocs[x][y].render(x, y);
 			}
 		}
-		Text.drawText(65, 550, nbBlocs + "x", 14, new Color(Color.WHITE));
+		Text.drawText(65, 550, nbBlocs + "x", 14, new Color(Color.BLACK));
 		
 		bloc.bind();
 		Formes.carre(100, 550, 20, 20);
