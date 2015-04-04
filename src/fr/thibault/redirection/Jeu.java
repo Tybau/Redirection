@@ -7,7 +7,7 @@ public class Jeu {
 	
 	public static Jeu i;
 	
-	public int[] nbBlocs = {2, 4, 4, 8, 5, 8, 10};		//Tableau des nobres de blocs donné en fonction des niveaux 
+	public int[] nbBlocs = {2, 4, 4, 8, 5, 8, 10};		//Tableau des nombres de blocs donné en fonction des niveaux 
 	
 	Screen screen;
 	

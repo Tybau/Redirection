@@ -18,7 +18,7 @@ public class Terrain {
 	public static Blocs[][] blocs = new Blocs[Niveau.nbCase][Niveau.nbCase];
 	private int nbBlocs;
 	
-	private Blocs mur, murPose, sol, fin;
+	private Blocs mur, murPose, sol, fin, tuto;
 	private Texture niveau, bloc;
 	
 	public Terrain(int niv, int nbBlocs){
@@ -28,6 +28,7 @@ public class Terrain {
 		this.murPose = new Blocs("blocs/mur_pose.png", "BASE", true);
 		this.sol = new Blocs("blocs/sol.png", "BASE", false);
 		this.fin = new Blocs("blocs/fin.png", "WIN", false);
+		this.tuto = new Blocs("blocs/tuto.png", "BASE", false);
 		
 		this.niveau = new Texture("niveaux/NIV_" + niv + ".png", GL_NEAREST);
 		this.bloc = new Texture("blocs.png", GL_NEAREST);
@@ -38,6 +39,8 @@ public class Terrain {
 					blocs[x][y] = mur;
 				else if (niveau.getImage(niveau).getRGB(x, y) == 0xffff0000)
 						blocs[x][y] = fin;
+				else if (niveau.getImage(niveau).getRGB(x, y) == 0xffff7e00)
+					blocs[x][y] = tuto;
 				else
 					blocs[x][y] = sol;
 			}

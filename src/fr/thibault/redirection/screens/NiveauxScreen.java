@@ -58,15 +58,15 @@ public class NiveauxScreen extends Screen{
 		super.render();
 		
 		if(choix == 0)
-			Text.drawText(75, 150, "Niveau: " + niveau, 12, new Color(Color.RED));
+			Text.drawText(75, 150, "Niveau: " + niveau, 20, new Color(Color.RED));
 		else
-			Text.drawText(75, 150, "Niveau: " + niveau, 12, new Color(Color.WHITE));
+			Text.drawText(75, 150, "Niveau: " + niveau, 20, new Color(Color.WHITE));
 		
 		//Retour MENU
 		
 		if(choix == 1)
-			Text.drawText(75, 500, "Menu", 12, new Color(Color.RED));
+			Text.drawText(75, 500, "Menu", 20, new Color(Color.RED));
 		else
-			Text.drawText(75, 500, "Menu", 12, new Color(Color.WHITE));
+			Text.drawText(75, 500, "Menu", 20, new Color(Color.WHITE));
 	}
 }
