@@ -20,11 +20,15 @@ public class Niveau {
 	
 	public void update(){		
 		this.joueur.update();
-		this.niveauCharge.update(joueur.getX(), joueur.getY());
+		this.niveauCharge.update(joueur);
 	}
 	
 	public void render(){
 		this.niveauCharge.render();
 		this.joueur.render();
+	}
+	
+	public Joueur getJoueur(){
+		return joueur;
 	}
 }

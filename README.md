@@ -16,8 +16,7 @@ Nous avons repris ce concept pour réaliser notre projet d'ISN (Informatique Sci
 ##Bibliothèques utilisées
 
  - LWJGL (Bibliothèque permettant d'utiliser les fonctionnalité d'OpenGL)
- - SLICK 2D (Bibliothèque permettant l'utilisation simple d'image en 2D et d'entrer claviers/souris)
-
+ 
 ##Objectifs
 
 ###Noyau

@@ -24,4 +24,8 @@ public class Blocs {
 		Formes.carre(x * Niveau.taille, y * Niveau.taille, Niveau.taille, Niveau.taille);
 		Texture.unbind();
 	}
+	
+	public Texture getTexture(){
+		return texture;
+	}
 }

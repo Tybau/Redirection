@@ -16,7 +16,7 @@ public class GameMain{
 	
 	public static void main(String[] args){		//Fonction Principale éxécuté par Java
 		try {
-			//Création de la fenètre
+			/* Création de la fenètre */
 			Display.setDisplayMode(new DisplayMode(1000, 600));
 			Display.create();
 			

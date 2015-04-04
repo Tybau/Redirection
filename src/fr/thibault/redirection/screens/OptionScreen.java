@@ -83,8 +83,8 @@ public class OptionScreen extends Screen{
 		//Retour MENU
 		
 		if(choix == 2)
-			Text.drawText(75, 500, "Menu", 12, new Color(Color.RED));
+			Text.drawText(75, 500, "Menu", 20, new Color(Color.RED));
 		else
-			Text.drawText(75, 500, "Menu", 12, new Color(Color.WHITE));
+			Text.drawText(75, 500, "Menu", 20, new Color(Color.WHITE));
 	}
 }
