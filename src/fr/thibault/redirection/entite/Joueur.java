@@ -18,11 +18,11 @@ public class Joueur {
 	private boolean peutBouger;
 	
 	private int speed;
+
+	private boolean aBombe;
 	
 	private Texture texture;
 	private Texture bombe;
-	
-	private boolean aBombe;
 	
 	public Joueur(){
 		this.x = 1;
