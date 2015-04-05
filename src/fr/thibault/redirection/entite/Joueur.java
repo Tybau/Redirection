@@ -14,7 +14,7 @@ import fr.thibault.redirection.utils.Texture;
 public class Joueur {
 	
 	private int x, y;
-	private String move;
+	private int move;
 	private boolean peutBouger;
 	
 	private int speed;
@@ -24,7 +24,7 @@ public class Joueur {
 	public Joueur(){
 		this.x = 1;
 		this.y = 1;
-		this.move = "R";
+		this.move = Jeu.RIGHT;
 		this.peutBouger = true;
 		this.speed = 20;
 		
@@ -46,31 +46,50 @@ public class Joueur {
 	private int t = 0;
 	public void update(){
 		if(t == speed && peutBouger){
-			if(move == "R" && !Terrain.blocs[x + 1][y].estSolide)
+			if(move == Jeu.RIGHT && !Terrain.blocs[x + 1][y].getEstSolide())
 				x ++;
 			
-			if(move == "L" && !Terrain.blocs[x - 1][y].estSolide)
+			if(move == Jeu.LEFT && !Terrain.blocs[x - 1][y].getEstSolide())
 				x --;
 			
-			if(move == "D" && !Terrain.blocs[x][y + 1].estSolide)
+			if(move == Jeu.DOWN && !Terrain.blocs[x][y + 1].getEstSolide())
 				y ++;
 			
-			if(move == "U" && !Terrain.blocs[x][y - 1].estSolide)
+			if(move == Jeu.UP && !Terrain.blocs[x][y - 1].getEstSolide())
 				y --;
+    			
+    		if (!Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE")){
+    			if(move == Jeu.RIGHT && Terrain.blocs[x + 1][y].getEstSolide())
+    				move = Jeu.DOWN;
+    			
+    			if(move == Jeu.LEFT && Terrain.blocs[x - 1][y].getEstSolide())
+    				move = Jeu.UP;
+    			
+    			if(move == Jeu.DOWN && Terrain.blocs[x][y + 1].getEstSolide())
+    				move = Jeu.LEFT;
+    			
+    			if(move == Jeu.UP && Terrain.blocs[x][y - 1].getEstSolide())
+    				move = Jeu.RIGHT;
+			}
+    		
+    		/* Verification du bloc de tp */
+    		if (Terrain.blocs[x][y].getType().equalsIgnoreCase("TPD"))
+    			setXY((int)Niveau.level.getTpAPos().x, (int)Niveau.level.getTpAPos().y);
 			
-			if(move == "R" && Terrain.blocs[x + 1][y].estSolide)
-				move = "D";
+    		/* Verification des blocs reverse */
+			if(move == Jeu.UP && Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE"))
+				move = Jeu.DOWN;
 			
-			if(move == "L" && Terrain.blocs[x - 1][y].estSolide)
-				move = "U";
+			else if(move == Jeu.DOWN && Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE"))
+				move = Jeu.UP;
 			
-			if(move == "D" && Terrain.blocs[x][y + 1].estSolide)
-				move = "L";
+			else if(move == Jeu.RIGHT && Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE"))
+				move = Jeu.LEFT;
 			
-			if(move == "U" && Terrain.blocs[x][y - 1].estSolide)
-				move = "R";
+			else if(move == Jeu.LEFT && Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE"))
+				move = Jeu.RIGHT;
 			
-			if(Terrain.blocs[x][y].type == "WIN"){
+			if(Terrain.blocs[x][y].getType() == "WIN"){
 				peutBouger = false;
 			}
 			t = 0;
@@ -105,11 +124,11 @@ public class Joueur {
 		this.y = y;
 	}
 	
-	public String getMove(){
+	public int getMove(){
 		return move;
 	}
 	
-	public void setMove(String v){
+	public void setMove(int v){
 		this.move = v;
 	}
 }

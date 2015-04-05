@@ -9,10 +9,10 @@ public class Formes {
 		glTranslatef(x, y, 0);
 		glScalef(width, height, 0);
 		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0); glVertex2f(0, 0);
-		glTexCoord2f(1, 0); glVertex2f(1, 0);
-		glTexCoord2f(1, 1); glVertex2f(1, 1);
-		glTexCoord2f(0, 1); glVertex2f(0, 1);
+    		glTexCoord2f(0, 0); glVertex2f(0, 0);
+    		glTexCoord2f(1, 0); glVertex2f(1, 0);
+    		glTexCoord2f(1, 1); glVertex2f(1, 1);
+    		glTexCoord2f(0, 1); glVertex2f(0, 1);
 		glEnd();
 		glPopMatrix();
 	}

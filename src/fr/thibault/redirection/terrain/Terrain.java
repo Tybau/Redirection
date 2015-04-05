@@ -65,70 +65,49 @@ public class Terrain {
 		}
 	}
 	
+	boolean aTourne = false;
+	
 	public void update(Joueur joueur){
 		int joueurX = joueur.getX();
 		int joueurY = joueur.getY();
 		/* Verification de la pose d'un bloc */
 		if(Inputs.isMouseButtonPressed(0) && Mouse.getX() <= Niveau.taille * Niveau.nbCase && Display.getHeight() - Mouse.getY() <= Niveau.taille * Niveau.nbCase && nbBlocs != 0){
 			if(Mouse.getX() / Niveau.taille != joueurX || Display.getHeight() - Mouse.getY() / Niveau.taille != joueurY){
-				if(!blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille].estSolide &&
-				   blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille].type == "BASE"){
+				if(!blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille].getEstSolide() &&
+				   blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille].getType().equalsIgnoreCase("BASE")){
 					blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille] = murPose;
 					nbBlocs--;
 				}
-		
 			}
 		}	
 		
 		/* Verification des blocs invisible autour du joueur */
-		if(blocs[joueurX + 1][joueurY].type.equalsIgnoreCase("INVI"))
+		if(blocs[joueurX + 1][joueurY].getType().equalsIgnoreCase("INVI"))
 			blocs[joueurX + 1][joueurY] = mur;
 		
-		if(blocs[joueurX - 1][joueurY].type.equalsIgnoreCase("INVI"))
+		if(blocs[joueurX - 1][joueurY].getType().equalsIgnoreCase("INVI"))
 			blocs[joueurX - 1][joueurY] = mur;
 		
-		if(blocs[joueurX][joueurY + 1].type.equalsIgnoreCase("INVI"))
+		if(blocs[joueurX][joueurY + 1].getType().equalsIgnoreCase("INVI"))
 			blocs[joueurX][joueurY + 1] = mur;
 		
-		if(blocs[joueurX][joueurY - 1].type.equalsIgnoreCase("INVI"))
+		if(blocs[joueurX][joueurY - 1].getType().equalsIgnoreCase("INVI"))
 			blocs[joueurX][joueurY - 1] = mur;
 		
-		/* Verification du bloc de tp */
-		if(blocs[joueurX][joueurY].type.equalsIgnoreCase("TPD")){
-			for(int x = 0; x < 10; x++){
-				for(int y = 0; y < 10; y++){
-					if(blocs[x][y].type.equalsIgnoreCase("TPA"))
-						joueur.setXY(x, y);
-				}
-			}
-		}
-		
-		/* Verification du bloc reverse */
-		if(blocs[joueurX][joueurY].type.equalsIgnoreCase("REVE")){
-			if(joueur.getMove().equalsIgnoreCase("R"))
-				joueur.setMove("L");
-			if(joueur.getMove().equalsIgnoreCase("L"))
-				joueur.setMove("R");
-			if(joueur.getMove().equalsIgnoreCase("U"))
-				joueur.setMove("D");
-			if(joueur.getMove().equalsIgnoreCase("D"))
-				joueur.setMove("U");
-		}
-		
 		/* Verification des blocs cassable autour du joueur */
-		if(blocs[joueurX + 1][joueurY].type.equalsIgnoreCase("CASE")){
+		if(blocs[joueurX + 1][joueurY].getType().equalsIgnoreCase("CASE")){
 			blocs[joueurX + 1][joueurY] = sol;
 		}
 		
-		if(blocs[joueurX - 1][joueurY].type.equalsIgnoreCase("CASE")){
+		if(blocs[joueurX - 1][joueurY].getType().equalsIgnoreCase("CASE")){
 			blocs[joueurX - 1][joueurY] = sol;
 		}
 		
-		if(blocs[joueurX][joueurY + 1].type.equalsIgnoreCase("CASE")){
+		if(blocs[joueurX][joueurY + 1].getType().equalsIgnoreCase("CASE")){
 			blocs[joueurX][joueurY + 1] = sol;
 		}
 		
-		if(blocs[joueurX][joueurY - 1].type.equalsIgnoreCase("CASE")){
+		if(blocs[joueurX][joueurY - 1].getType().equalsIgnoreCase("CASE")){
 			blocs[joueurX][joueurY - 1] = sol;
 		}
 	}

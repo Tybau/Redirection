@@ -5,11 +5,18 @@ import fr.thibault.redirection.screens.Screen;
 
 public class Jeu {
 	
+	/* Instance du Jeu */
 	public static Jeu i;
 	
-	public int[] nbBlocs = {2, 4, 6, 8, 5, 8, 10};		//Tableau des nombres de blocs donné en fonction des niveaux 
+	/* Direction */
+	public static int RIGHT = 1;
+	public static int LEFT = 2;
+	public static int UP = 3;
+	public static int DOWN = 4;
 	
-	Screen screen;
+	public int[] nbBlocs = {2, 4, 6, 8, 5, 8, 10, 10};		//Tableau des nombres de blocs donné en fonction des niveaux 
+	
+	private Screen screen;
 	
 	public int difficulte = 0;
 	public int volume = 5;
@@ -17,7 +24,7 @@ public class Jeu {
 	public int numNiveau;
 	public int nbBlocsSup = 2;		//Nombres de blocs donné en plus selon la difficulté (par défaut facile avec 2 blocs suplémentaires)
 	
-	public int niveauMax = 6;
+	public int niveauMax = 7;
 	
 	public int niveauAtteint = 0;
 	

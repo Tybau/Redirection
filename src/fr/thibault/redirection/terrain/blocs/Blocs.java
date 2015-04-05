@@ -7,8 +7,8 @@ import fr.thibault.redirection.utils.Texture;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Blocs {
-	public boolean estSolide;
-	public String type;
+	private boolean estSolide;
+	private String type;
 	
 	private Texture texture;
 	
@@ -25,8 +25,20 @@ public class Blocs {
 		Texture.unbind();
 	}
 	
+	public String getType(){
+		return type;
+	}
+	
 	public Texture getTexture(){
 		return texture;
+	}
+	
+	public boolean getEstSolide(){
+		return estSolide;
+	}
+	
+	public void setTexture(Texture tex){
+		this.texture = tex;
 	}
 	
 	public void setEstSolide(boolean v){
