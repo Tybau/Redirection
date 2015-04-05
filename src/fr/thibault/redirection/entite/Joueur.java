@@ -20,6 +20,9 @@ public class Joueur {
 	private int speed;
 	
 	private Texture texture;
+	private Texture bombe;
+	
+	private boolean aBombe;
 	
 	public Joueur(){
 		this.x = 1;
@@ -29,6 +32,9 @@ public class Joueur {
 		this.speed = 20;
 		
 		this.texture = new Texture("joueur.png", GL_NEAREST);
+		this.bombe = new Texture("bombe_icon.png", GL_NEAREST);
+		
+		this.aBombe = false;
 		
 		Jeu.i.nivTermine = false;
 		switch(Jeu.i.difficulte){
@@ -109,6 +115,12 @@ public class Joueur {
 		}else{
 			Text.drawText(600, 150, "     Niveau:\nLe but de ce jeu est de\nparvenir a la croix rouge\nen posant des blocs pour\nfaire tourner le joueur.", 12, new Color(Color.BLACK));
 		}
+		
+		if(aBombe){
+			bombe.bind();
+			Formes.carre(200, 530, 50, 50);
+			Texture.unbind();
+		}
 	}
 	
 	public int getX(){
@@ -130,5 +142,13 @@ public class Joueur {
 	
 	public void setMove(int v){
 		this.move = v;
+	}
+	
+	public boolean getBombe(){
+		return aBombe;
+	}
+	
+	public void setBombe(boolean v){
+		this.aBombe = v;
 	}
 }

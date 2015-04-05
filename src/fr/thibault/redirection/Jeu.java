@@ -26,7 +26,7 @@ public class Jeu {
 	
 	public int niveauMax = 7;
 	
-	public int niveauAtteint = 0;
+	public int niveauAtteint = 7;
 	
 	public boolean nivTermine = false;
 	

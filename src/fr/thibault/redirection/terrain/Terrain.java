@@ -19,7 +19,7 @@ public class Terrain {
 	public static Blocs[][] blocs = new Blocs[Niveau.nbCase][Niveau.nbCase];
 	private int nbBlocs;
 	
-	private Blocs mur, murPose, sol, fin, tuto, invisible, tpDepart, tpArrive, reverse, cassable;
+	private Blocs mur, murPose, sol, fin, tuto, invisible, tpDepart, tpArrive, reverse, cassable, bombe;
 	private Texture niveau, bloc;
 	
 	public Terrain(int niv, int nbBlocs){
@@ -36,6 +36,7 @@ public class Terrain {
 		this.tpArrive = new Blocs("blocs/tp_arrive.png", "TPA", false);
 		this.reverse = new Blocs("blocs/reverse.png", "REVE", false);
 		this.cassable = new Blocs("blocs/cassable.png", "CASE", true);
+		this.bombe = new Blocs("blocs/bombe.png", "BOMB", false);
 		
 		this.niveau = new Texture("niveaux/NIV_" + niv + ".png", GL_NEAREST);
 		this.bloc = new Texture("blocs.png", GL_NEAREST);
@@ -59,6 +60,8 @@ public class Terrain {
 					blocs[x][y] = reverse;
 				else if (niveau.getImage(niveau).getRGB(x, y) == 0xff3d0f0f)
 					blocs[x][y] = cassable;
+				else if (niveau.getImage(niveau).getRGB(x, y) == 0xff00957b)
+					blocs[x][y] = bombe;
 				else
 					blocs[x][y] = sol;
 			}
@@ -95,20 +98,30 @@ public class Terrain {
 			blocs[joueurX][joueurY - 1] = mur;
 		
 		/* Verification des blocs cassable autour du joueur */
-		if(blocs[joueurX + 1][joueurY].getType().equalsIgnoreCase("CASE")){
+		if(blocs[joueurX + 1][joueurY].getType().equalsIgnoreCase("CASE") && joueur.getBombe()){
 			blocs[joueurX + 1][joueurY] = sol;
+			joueur.setBombe(false);
 		}
 		
-		if(blocs[joueurX - 1][joueurY].getType().equalsIgnoreCase("CASE")){
+		if(blocs[joueurX - 1][joueurY].getType().equalsIgnoreCase("CASE") && joueur.getBombe()){
 			blocs[joueurX - 1][joueurY] = sol;
+			joueur.setBombe(false);
 		}
 		
-		if(blocs[joueurX][joueurY + 1].getType().equalsIgnoreCase("CASE")){
+		if(blocs[joueurX][joueurY + 1].getType().equalsIgnoreCase("CASE") && joueur.getBombe()){
 			blocs[joueurX][joueurY + 1] = sol;
+			joueur.setBombe(false);
 		}
 		
-		if(blocs[joueurX][joueurY - 1].getType().equalsIgnoreCase("CASE")){
+		if(blocs[joueurX][joueurY - 1].getType().equalsIgnoreCase("CASE") && joueur.getBombe()){
 			blocs[joueurX][joueurY - 1] = sol;
+			joueur.setBombe(false);
+		}
+		
+		/* Verification de la bombe */
+		if(blocs[joueurX][joueurY].getType().equalsIgnoreCase("BOMB") && !joueur.getBombe()){
+			joueur.setBombe(true);
+			blocs[joueurX][joueurY] = sol;
 		}
 	}
 	
