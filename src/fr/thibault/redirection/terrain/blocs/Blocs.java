@@ -21,7 +21,7 @@ public class Blocs {
 	
 	public void render(int x, int y){
 		this.texture.bind();
-		Formes.carre(x * Niveau.taille, y * Niveau.taille, Niveau.taille, Niveau.taille);
+		Formes.carre(x * Niveau.level.getTaille(), y * Niveau.level.getTaille(), Niveau.level.getTaille(), Niveau.level.getTaille());
 		Texture.unbind();
 	}
 	

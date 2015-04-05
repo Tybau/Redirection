@@ -6,11 +6,18 @@ import org.lwjgl.util.Color;
 
 public class Text {
 	
-	private static Texture font = new Texture("fonts/font.png", GL_NEAREST);
-	private static String chars = "abcdefghijklmnopqrstuvwxyz"
-			+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
-			+ "0123456789(){}[]/\\*-+=><\"'"
-			+ ",.:;!?%^@                 ";			//Emplacement des chatactères dans la texture
+	private static Texture font = new Texture("fonts/ascii.png", GL_NEAREST);
+	
+	private static String chars = ""
+			+ " ²²²²²²²²²²²²²²²"
+			+ "²²²²²²²²²²²²²²²²"
+			+ " !\"#$%&'()*+,-./" 
+			+ "0123456789:;<=>?"
+			+ "@ABCDEFGHIJKLMNO"
+			+ "PQRSTUVWXYZ[\\]^_"		
+			+ "'abcdefghijklmno"
+			+ "pqrstuvwxyz{|}~²"
+			+ "²üéâà²çê²èïîì²²";	//Emplacement des chatactères dans la texture
 
 	public static void drawText(int x, int y, String text, int size, Color c) {		//Dessin d'un texte
 		int charWidth = (int) (size * (3.0f / 4.0f));
@@ -36,12 +43,12 @@ public class Text {
 
 	public static void charData(char character, int x, int y, int size) {		//Dessin d'un charactère
 		int index = chars.indexOf(character);
-		int xo = index % 26;
-		int yo = index / 26;
+		int xo = index % 16;
+		int yo = index / 16;
 
-		glTexCoord2f((0 + xo) / 26.0f, (0 + yo) / 4.0f);		glVertex2f(x, y);
-		glTexCoord2f((1 + xo) / 26.0f, (0 + yo) / 4.0f);		glVertex2f(x + size, y);
-		glTexCoord2f((1 + xo) / 26.0f, (1 + yo) / 4.0f);		glVertex2f(x + size, y + size);
-		glTexCoord2f((0 + xo) / 26.0f, (1 + yo) / 4.0f);		glVertex2f(x, y + size);
+		glTexCoord2f((0 + xo) / 16.0f, (0 + yo) / 16.0f);		glVertex2f(x, y);
+		glTexCoord2f((1 + xo) / 16.0f, (0 + yo) / 16.0f);		glVertex2f(x + size, y);
+		glTexCoord2f((1 + xo) / 16.0f, (1 + yo) / 16.0f);		glVertex2f(x + size, y + size);
+		glTexCoord2f((0 + xo) / 16.0f, (1 + yo) / 16.0f);		glVertex2f(x, y + size);
 	}
 }

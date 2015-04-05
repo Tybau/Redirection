@@ -16,7 +16,7 @@ import fr.thibault.redirection.utils.Texture;
 
 public class Terrain {
 	
-	public static Blocs[][] blocs = new Blocs[Niveau.nbCase][Niveau.nbCase];
+	private Blocs[][] blocs = new Blocs[Niveau.level.getNbCase()][Niveau.level.getNbCase()];
 	private int nbBlocs;
 	
 	private Blocs mur, murPose, sol, fin, tuto, invisible, tpDepart, tpArrive, reverse, cassable, bombe;
@@ -42,8 +42,8 @@ public class Terrain {
 		this.bloc = new Texture("blocs.png", GL_NEAREST);
 		
 		/* Attribution des blocs selon l'image de niveau */
-		for (int x = 0; x < Niveau.nbCase; x ++){
-			for (int y = 0; y < Niveau.nbCase; y ++){
+		for (int x = 0; x < Niveau.level.getNbCase(); x ++){
+			for (int y = 0; y < Niveau.level.getNbCase(); y ++){
 				if (niveau.getImage(niveau).getRGB(x, y) == 0xff000000)
 					blocs[x][y] = mur;
 				else if (niveau.getImage(niveau).getRGB(x, y) == 0xffff0000)
@@ -73,12 +73,13 @@ public class Terrain {
 	public void update(Joueur joueur){
 		int joueurX = joueur.getX();
 		int joueurY = joueur.getY();
+		
 		/* Verification de la pose d'un bloc */
-		if(Inputs.isMouseButtonPressed(0) && Mouse.getX() <= Niveau.taille * Niveau.nbCase && Display.getHeight() - Mouse.getY() <= Niveau.taille * Niveau.nbCase && nbBlocs != 0){
-			if(Mouse.getX() / Niveau.taille != joueurX || Display.getHeight() - Mouse.getY() / Niveau.taille != joueurY){
-				if(!blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille].getEstSolide() &&
-				   blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille].getType().equalsIgnoreCase("BASE")){
-					blocs[Mouse.getX() / Niveau.taille][(Display.getHeight() - Mouse.getY()) / Niveau.taille] = murPose;
+		if(Inputs.isMouseButtonPressed(0) && Mouse.getX() <= Niveau.level.getTaille() * Niveau.level.getNbCase() && Display.getHeight() - Mouse.getY() <= Niveau.level.getTaille() * Niveau.level.getNbCase() && nbBlocs != 0){
+			if(Mouse.getX() / Niveau.level.getTaille() != joueurX || Display.getHeight() - Mouse.getY() / Niveau.level.getTaille() != joueurY){
+				if(!blocs[Mouse.getX() / Niveau.level.getTaille()][(Display.getHeight() - Mouse.getY()) / Niveau.level.getTaille()].getEstSolide() &&
+				   blocs[Mouse.getX() / Niveau.level.getTaille()][(Display.getHeight() - Mouse.getY()) / Niveau.level.getTaille()].getType().equalsIgnoreCase("BASE")){
+					blocs[Mouse.getX() / Niveau.level.getTaille()][(Display.getHeight() - Mouse.getY()) / Niveau.level.getTaille()] = murPose;
 					nbBlocs--;
 				}
 			}
@@ -126,8 +127,8 @@ public class Terrain {
 	}
 	
 	public void render(){
-		for (int x = 0; x < Niveau.nbCase; x ++){
-			for (int y = 0; y < Niveau.nbCase; y ++){
+		for (int x = 0; x < Niveau.level.getNbCase(); x ++){
+			for (int y = 0; y < Niveau.level.getNbCase(); y ++){
 				blocs[x][y].render(x, y);
 			}
 		}
@@ -136,5 +137,9 @@ public class Terrain {
 		bloc.bind();
 		Formes.carre(100, 550, 20, 20);
 		Texture.unbind();
+	}
+	
+	public Blocs getBloc(int x, int y){
+		return this.blocs[x][y];
 	}
 }

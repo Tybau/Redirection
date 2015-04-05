@@ -6,7 +6,6 @@ import org.lwjgl.util.Color;
 
 import fr.thibault.redirection.Jeu;
 import fr.thibault.redirection.niveau.Niveau;
-import fr.thibault.redirection.terrain.Terrain;
 import fr.thibault.redirection.utils.Formes;
 import fr.thibault.redirection.utils.Text;
 import fr.thibault.redirection.utils.Texture;
@@ -18,7 +17,7 @@ public class Joueur {
 	private boolean peutBouger;
 	
 	private int speed;
-
+	
 	private boolean aBombe;
 	
 	private Texture texture;
@@ -52,50 +51,50 @@ public class Joueur {
 	private int t = 0;
 	public void update(){
 		if(t == speed && peutBouger){
-			if(move == Jeu.RIGHT && !Terrain.blocs[x + 1][y].getEstSolide())
+			if(move == Jeu.RIGHT && !Niveau.level.getTerrain().getBloc(x + 1, y).getEstSolide())
 				x ++;
 			
-			if(move == Jeu.LEFT && !Terrain.blocs[x - 1][y].getEstSolide())
+			if(move == Jeu.LEFT && !Niveau.level.getTerrain().getBloc(x - 1, y).getEstSolide())
 				x --;
 			
-			if(move == Jeu.DOWN && !Terrain.blocs[x][y + 1].getEstSolide())
+			if(move == Jeu.DOWN && !Niveau.level.getTerrain().getBloc(x, y + 1).getEstSolide())
 				y ++;
 			
-			if(move == Jeu.UP && !Terrain.blocs[x][y - 1].getEstSolide())
+			if(move == Jeu.UP && !Niveau.level.getTerrain().getBloc(x, y - 1).getEstSolide())
 				y --;
     			
-    		if (!Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE")){
-    			if(move == Jeu.RIGHT && Terrain.blocs[x + 1][y].getEstSolide())
+    		if (!Niveau.level.getTerrain().getBloc(x, y).getType().equalsIgnoreCase("REVE")){
+    			if(move == Jeu.RIGHT && Niveau.level.getTerrain().getBloc(x + 1 ,y).getEstSolide())
     				move = Jeu.DOWN;
     			
-    			if(move == Jeu.LEFT && Terrain.blocs[x - 1][y].getEstSolide())
+    			if(move == Jeu.LEFT && Niveau.level.getTerrain().getBloc(x - 1, y).getEstSolide())
     				move = Jeu.UP;
     			
-    			if(move == Jeu.DOWN && Terrain.blocs[x][y + 1].getEstSolide())
+    			if(move == Jeu.DOWN && Niveau.level.getTerrain().getBloc(x, y + 1).getEstSolide())
     				move = Jeu.LEFT;
     			
-    			if(move == Jeu.UP && Terrain.blocs[x][y - 1].getEstSolide())
+    			if(move == Jeu.UP && Niveau.level.getTerrain().getBloc(x, y - 1).getEstSolide())
     				move = Jeu.RIGHT;
 			}
     		
     		/* Verification du bloc de tp */
-    		if (Terrain.blocs[x][y].getType().equalsIgnoreCase("TPD"))
+    		if (Niveau.level.getTerrain().getBloc(x, y).getType().equalsIgnoreCase("TPD"))
     			setXY((int)Niveau.level.getTpAPos().x, (int)Niveau.level.getTpAPos().y);
 			
     		/* Verification des blocs reverse */
-			if(move == Jeu.UP && Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE"))
+			if(move == Jeu.UP && Niveau.level.getTerrain().getBloc(x, y).getType().equalsIgnoreCase("REVE"))
 				move = Jeu.DOWN;
 			
-			else if(move == Jeu.DOWN && Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE"))
+			else if(move == Jeu.DOWN && Niveau.level.getTerrain().getBloc(x, y).getType().equalsIgnoreCase("REVE"))
 				move = Jeu.UP;
 			
-			else if(move == Jeu.RIGHT && Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE"))
+			else if(move == Jeu.RIGHT && Niveau.level.getTerrain().getBloc(x, y).getType().equalsIgnoreCase("REVE"))
 				move = Jeu.LEFT;
 			
-			else if(move == Jeu.LEFT && Terrain.blocs[x][y].getType().equalsIgnoreCase("REVE"))
+			else if(move == Jeu.LEFT && Niveau.level.getTerrain().getBloc(x, y).getType().equalsIgnoreCase("REVE"))
 				move = Jeu.RIGHT;
 			
-			if(Terrain.blocs[x][y].getType() == "WIN"){
+			if(Niveau.level.getTerrain().getBloc(x, y).getType() == "WIN"){
 				peutBouger = false;
 			}
 			t = 0;
@@ -105,7 +104,7 @@ public class Joueur {
 	
 	public void render(){
 		this.texture.bind();
-		Formes.carre(x * Niveau.taille, y *  Niveau.taille,  Niveau.taille,  Niveau.taille);
+		Formes.carre(x * Niveau.level.getTaille(), y *  Niveau.level.getTaille(),  Niveau.level.getTaille(),  Niveau.level.getTaille());
 		Texture.unbind();
 		
 		if(!peutBouger){

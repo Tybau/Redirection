@@ -20,7 +20,7 @@ public class GuiButton {
 		int my = Display.getHeight() - Mouse.getY();
 
 		int height = 32;
-		int width = text.length() * 24 + 100;
+		int width = (text.length() * 24 * 3 / 4) + 100;
 		
 		Texture.unbind();
 		
@@ -37,7 +37,7 @@ public class GuiButton {
 		}
 		Formes.carre(x, y, width, height);
 
-		Text.drawText(x + width / 2 - (text.length() * 16) / 2, y + height / 2 - 12, text,  24, new Color(Color.WHITE));
+		Text.drawText(x + width / 2 - (text.length() * 24 * 3 / 4) / 2, y + height / 2 - 12, text,  24, new Color(Color.WHITE));
 		Texture.unbind();
 
 		glColor4f(1, 1, 1, 1);

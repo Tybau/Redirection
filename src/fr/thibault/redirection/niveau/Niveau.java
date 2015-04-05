@@ -9,11 +9,11 @@ public class Niveau {
 	
 	public static Niveau level;
 	
-	private Terrain niveauCharge;
+	private Terrain terrain;
 	private Joueur joueur;
 	
-	public static int nbCase;
-	public static int taille;
+	private int nbCase;
+	private int taille;
 	private int xTpA, yTpA;
 	
 	public Niveau(int niv, int nbBlocs){
@@ -24,12 +24,12 @@ public class Niveau {
 		this.xTpA = 1;
 		this.yTpA = 1;
 		
-		this.niveauCharge = new Terrain(niv, nbBlocs);
+		this.terrain = new Terrain(niv, nbBlocs);
 		this.joueur = new Joueur();
 		
 		for(int i = 0; i < 10; i++){
 			for(int j = 0; j < 10; j++){
-				if(Terrain.blocs[i][j].getType().equalsIgnoreCase("TPA")){
+				if(terrain.getBloc(i, j).getType().equalsIgnoreCase("TPA")){
 					this.xTpA = i;
 					this.yTpA = j;
 				}
@@ -39,11 +39,11 @@ public class Niveau {
 	
 	public void update(){
 		this.joueur.update();
-		this.niveauCharge.update(joueur);
+		this.terrain.update(joueur);
 	}
 	
 	public void render(){
-		this.niveauCharge.render();
+		this.terrain.render();
 		this.joueur.render();
 	}
 	
@@ -51,7 +51,19 @@ public class Niveau {
 		return new Vector2f(this.xTpA, this.yTpA);
 	}
 	
+	public int getTaille(){
+		return this.taille;
+	}
+	
+	public int getNbCase(){
+		return this.nbCase;
+	}
+	
 	public Joueur getJoueur(){
-		return joueur;
+		return this.joueur;
+	}
+	
+	public Terrain getTerrain(){
+		return this.terrain;
 	}
 }

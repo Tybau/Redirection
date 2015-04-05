@@ -58,9 +58,9 @@ public class GameScreen extends Screen{
 			this.titre.bind();
 			Formes.carre(Display.getWidth() / 2 - titre.getWidth() / 2, 50, titre.getWidth(), titre.getHeight());
 			Texture.unbind();
-			if(GuiButton.create("Reprendre", Display.getWidth() / 2 - 158, 200)) enPause = false;
-			if(GuiButton.create("Recommencer", Display.getWidth() / 2 - 182, 250)) Jeu.i.setCurrentScreen(new GameScreen(numNiveau, Jeu.i.nbBlocs, nbBlocsSup));
-			if(GuiButton.create("Menu", Display.getWidth() / 2 - 98, 300)) Jeu.i.setCurrentScreen(new MainMenuScreen());
+			if(GuiButton.create("Reprendre", Display.getWidth() / 2 - 131, 200)) enPause = false;
+			if(GuiButton.create("Recommencer", Display.getWidth() / 2 - 149, 250)) Jeu.i.setCurrentScreen(new GameScreen(numNiveau, Jeu.i.nbBlocs, nbBlocsSup));
+			if(GuiButton.create("Menu", Display.getWidth() / 2 - 86, 300)) Jeu.i.setCurrentScreen(new MainMenuScreen());
 			
 			return;
 		}
