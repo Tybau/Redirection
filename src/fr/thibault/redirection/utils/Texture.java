@@ -55,6 +55,8 @@ public class Texture {
         buffer.flip();
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+        
+        System.out.println("[ Redirection ] Chargement de la texture: " + path);
 
         this.id = id;
     }

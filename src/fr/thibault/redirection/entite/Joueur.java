@@ -2,10 +2,16 @@ package fr.thibault.redirection.entite;
 
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.lwjgl.util.Color;
 
 import fr.thibault.redirection.Jeu;
+import fr.thibault.redirection.gui.GuiButton;
 import fr.thibault.redirection.niveau.Niveau;
+import fr.thibault.redirection.screens.GameScreen;
 import fr.thibault.redirection.utils.Formes;
 import fr.thibault.redirection.utils.Text;
 import fr.thibault.redirection.utils.Texture;
@@ -23,12 +29,22 @@ public class Joueur {
 	private Texture texture;
 	private Texture bombe;
 	
+	private FileWriter fw;
+	private BufferedWriter out;
+	
 	public Joueur(){
 		this.x = 1;
 		this.y = 1;
 		this.move = Jeu.RIGHT;
 		this.peutBouger = true;
 		this.speed = 20;
+		
+		try {
+			this.fw = new FileWriter("redirection.data");
+			this.out = new BufferedWriter(fw);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		this.texture = new Texture("joueur.png", GL_NEAREST);
 		this.bombe = new Texture("bombe_icon.png", GL_NEAREST);
@@ -110,7 +126,21 @@ public class Joueur {
 		if(!peutBouger){
 			Text.drawText(600, 150, "Tu as gagne !", 16, new Color(Color.BLACK));
 			Jeu.i.nivTermine = true;
-			Jeu.i.niveauAtteint = Jeu.i.numNiveau + 1;
+			if(Jeu.i.numNiveau == Jeu.i.niveauAtteint && Jeu.i.niveauAtteint < Jeu.i.niveauMax){
+				Jeu.i.niveauAtteint++;
+				try {
+					this.out.write("save:" + Jeu.i.niveauAtteint);
+					this.out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if(Jeu.i.numNiveau < Jeu.i.niveauMax){
+				if(GuiButton.create("Suivant", 600, 500)){
+					Jeu.i.numNiveau ++;
+					Jeu.i.setCurrentScreen(new GameScreen(Jeu.i.numNiveau, Jeu.i.nbBlocs, Jeu.i.nbBlocsSup));
+				}
+			}
 		}else{
 			Text.drawText(600, 150, "     Niveau:\nLe but de ce jeu est de\nparvenir a la croix rouge\nen posant des blocs pour\nfaire tourner le joueur.", 12, new Color(Color.BLACK));
 		}
