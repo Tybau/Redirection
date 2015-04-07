@@ -44,13 +44,17 @@ public class NiveauxScreen extends Screen{
 		}
 		
 		if(Inputs.isKeyboardKeyPressed(Keyboard.KEY_LEFT)){
-			if(choix == 0 && niveau > 0)
+			if(choix == 0 && niveau > 0){
 				niveau--;
+				this.nivCharge = new Texture("niveaux/NIV_" + niveau + ".png" , GL_NEAREST);
+			}
 		}
 		
 		if(Inputs.isKeyboardKeyPressed(Keyboard.KEY_RIGHT)){
-			if(choix == 0 && niveau < niveauAtteint && niveau < niveauMax)
+			if(choix == 0 && niveau < niveauAtteint && niveau < niveauMax){
 				niveau++;
+				this.nivCharge = new Texture("niveaux/NIV_" + niveau + ".png" , GL_NEAREST);
+			}
 		}
 		
 		if(Inputs.isKeyboardKeyPressed(Keyboard.KEY_DOWN) && choix < choixMax)
@@ -58,8 +62,6 @@ public class NiveauxScreen extends Screen{
 		
 		if(Inputs.isKeyboardKeyPressed(Keyboard.KEY_UP) && choix > 0)
 			choix--;
-		
-		this.nivCharge = new Texture("niveaux/NIV_" + niveau + ".png" , GL_NEAREST);
 	}
 	
 	@Override
