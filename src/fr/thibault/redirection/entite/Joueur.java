@@ -2,10 +2,6 @@ package fr.thibault.redirection.entite;
 
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import org.lwjgl.util.Color;
 
 import fr.thibault.redirection.Jeu;
@@ -29,8 +25,7 @@ public class Joueur {
 	private Texture texture;
 	private Texture bombe;
 	
-	private FileWriter fw;
-	private BufferedWriter out;
+	
 	
 	public Joueur(){
 		this.x = 1;
@@ -38,13 +33,6 @@ public class Joueur {
 		this.move = Jeu.RIGHT;
 		this.peutBouger = true;
 		this.speed = 20;
-		
-		try {
-			this.fw = new FileWriter("redirection.data");
-			this.out = new BufferedWriter(fw);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		this.texture = new Texture("joueur.png", GL_NEAREST);
 		this.bombe = new Texture("bombe_icon.png", GL_NEAREST);
@@ -128,12 +116,6 @@ public class Joueur {
 			Jeu.i.nivTermine = true;
 			if(Jeu.i.numNiveau == Jeu.i.niveauAtteint && Jeu.i.niveauAtteint < Jeu.i.niveauMax){
 				Jeu.i.niveauAtteint++;
-				try {
-					this.out.write("save:" + Jeu.i.niveauAtteint);
-					this.out.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
 			if(Jeu.i.numNiveau < Jeu.i.niveauMax){
 				if(GuiButton.create("Suivant", 600, 500)){

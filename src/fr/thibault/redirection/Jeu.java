@@ -1,7 +1,10 @@
 package fr.thibault.redirection;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import fr.thibault.redirection.screens.MainMenuScreen;
@@ -34,17 +37,28 @@ public class Jeu {
 	
 	public boolean nivTermine = false;
 	
+	
+	/* Fichier de sauvegarde */
+	private File file;
+	
 	private FileReader fr;
 	private BufferedReader in;
+	
+	private FileWriter fw;
+	private BufferedWriter out;
 	
 	public Jeu(){
 		i = this;
 		this.numNiveau = 0;
 		try {
+			this.file = new File("redirection.data");
+			file.createNewFile();
 			this.fr = new FileReader("redirection.data");
 			this.in = new BufferedReader(fr);
-			String data = in.readLine();
-			this.niveauAtteint = Integer.parseInt(data.split(":")[1]);
+			
+			String data = in.readLine();		//Récupération de la sauvegarde
+			if(data != null)
+				this.niveauAtteint = Integer.parseInt(data.split(":")[1]);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,6 +74,18 @@ public class Jeu {
 	
 	public void render(){		
 		screen.render();
+	}
+	
+	public void stop(){
+		try {
+			this.fw = new FileWriter("redirection.data");
+			this.out = new BufferedWriter(fw);
+			
+			this.out.write("save:" + Jeu.i.niveauAtteint);		//Sauvegarde
+			this.out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setCurrentScreen(Screen screen){

@@ -61,8 +61,9 @@ public class GameMain{
 				fps = 0;
 			}
 		}
-		Display.destroy();		//Destruction de la fenètre
 		System.err.println("[ Redirection ] Fin du jeu!");
+		j.stop();
+		Display.destroy();		//Destruction de la fenètre
 		System.exit(0);		//Fermeture du programme
 	}
 	
