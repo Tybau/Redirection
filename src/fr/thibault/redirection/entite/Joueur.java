@@ -42,10 +42,10 @@ public class Joueur {
 		Jeu.i.nivTermine = false;
 		switch(Jeu.i.difficulte){
 			case 1:
-				speed = 15;
+				speed = 16;
 				break;
 			case 2:
-				speed = 12;
+				speed = 13;
 				break;
 			default:
 				speed = 20;
